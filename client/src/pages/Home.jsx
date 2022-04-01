@@ -1,11 +1,12 @@
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
 import UserInfo from "../components/UserInfo";
+import CreatePost from "../components/CreatePost";
 
 const Home = () => {
   return (
     <Container maxWidth="lg">
-      <Grid container direction="row" spacing={1}>
+      <Grid container direction="row" spacing={4}>
         <Grid
           style={{ backgroundColor: "red", textAlign: "center" }}
           item
@@ -20,6 +21,7 @@ const Home = () => {
           xs={6}
         >
           <p>Middle</p>
+          <CreatePost />
         </Grid>
         <Grid
           style={{ backgroundColor: "blue", textAlign: "center" }}

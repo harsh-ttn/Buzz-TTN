@@ -1,0 +1,1 @@
+command used to install material ui -> npm install --save --legacy-peer-deps @material-ui/core

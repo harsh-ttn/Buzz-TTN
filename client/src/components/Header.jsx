@@ -16,6 +16,7 @@ const Header = () => {
           backgroundColor: "white",
           color: "black",
           padding: "0 30px",
+          marginBottom: "30px",
         }}
       >
         <img src={logo} alt="To the New Logo" width="80px" />

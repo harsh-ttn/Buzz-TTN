@@ -2,33 +2,39 @@ import React from "react";
 import { Container, Grid } from "@material-ui/core";
 import UserInfo from "../components/UserInfo";
 import CreatePost from "../components/CreatePost";
+import Post from "../components/Post";
 
 const Home = () => {
   return (
     <Container maxWidth="lg">
       <Grid container direction="row" spacing={4}>
         <Grid
-          style={{ backgroundColor: "red", textAlign: "center" }}
+          style={{  textAlign: "center" }}
           item
           xs={3}
         >
-          <p>Left Sidebar</p>
+          {/* <p>Left Sidebar</p> */}
           <UserInfo />
         </Grid>
         <Grid
-          style={{ backgroundColor: "green", textAlign: "center" }}
+          style={{  textAlign: "center" }}
           item
           xs={6}
         >
-          <p>Middle</p>
+          {/* <p>Middle</p> */}
           <CreatePost />
+          <div style={{ padding: "30px 0" }}>
+            <Post />
+            <Post />
+            <Post />
+          </div>
         </Grid>
         <Grid
-          style={{ backgroundColor: "blue", textAlign: "center" }}
+          style={{ textAlign: "center" }}
           item
           xs={3}
         >
-          <p>Right Sidebar</p>
+          {/* <p>Right Sidebar</p> */}
         </Grid>
       </Grid>
     </Container>

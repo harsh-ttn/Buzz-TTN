@@ -18,7 +18,7 @@ const CreatePost = () => {
         <TextField
           label="Create a Post.."
           id="outlined-size-small"
-          defaultValue="I am creating a post"
+          /* defaultValue="I am creating a post" */
           variant="outlined"
           size="small"
           style={{

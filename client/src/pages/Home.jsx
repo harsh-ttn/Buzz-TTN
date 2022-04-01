@@ -3,24 +3,18 @@ import { Container, Grid } from "@material-ui/core";
 import UserInfo from "../components/UserInfo";
 import CreatePost from "../components/CreatePost";
 import Post from "../components/Post";
+import Contacts from "../components/Contacts";
+import Suggestions from "../components/Suggestions";
 
 const Home = () => {
   return (
     <Container maxWidth="lg">
       <Grid container direction="row" spacing={4}>
-        <Grid
-          style={{  textAlign: "center" }}
-          item
-          xs={3}
-        >
+        <Grid style={{ textAlign: "center" }} item xs={3}>
           {/* <p>Left Sidebar</p> */}
           <UserInfo />
         </Grid>
-        <Grid
-          style={{  textAlign: "center" }}
-          item
-          xs={6}
-        >
+        <Grid style={{ textAlign: "center" }} item xs={6}>
           {/* <p>Middle</p> */}
           <CreatePost />
           <div style={{ padding: "30px 0" }}>
@@ -29,12 +23,10 @@ const Home = () => {
             <Post />
           </div>
         </Grid>
-        <Grid
-          style={{ textAlign: "center" }}
-          item
-          xs={3}
-        >
+        <Grid style={{ textAlign: "center" }} item xs={3}>
           {/* <p>Right Sidebar</p> */}
+          <Contacts style={{ paddingBottom: 20 }} />
+          <Suggestions />
         </Grid>
       </Grid>
     </Container>

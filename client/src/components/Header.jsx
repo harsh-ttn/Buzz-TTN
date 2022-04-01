@@ -31,10 +31,10 @@ const Header = () => {
           <Avatar style={{ height: "30px", width: "30px" }} />
           <p style={{ margin: "0 20px 0 10px" }}>Username</p>
           <Avatar style={{ height: "30px", width: "30px", marginRight: 10 }}>
-            <Textsms />
+            <Textsms style={{ width: 15, color: "black" }} />
           </Avatar>
           <Avatar style={{ height: "30px", width: "30px" }}>
-            <Person />
+            <Person style={{ width: 20, color: "black" }} />
           </Avatar>
         </div>
       </AppBar>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar, AppBar } from "@material-ui/core";
 import { Person, Textsms } from "@material-ui/icons";
+import logo from "../assets/ttn-logo-name.png";
 
 const Header = () => {
   return (
@@ -17,11 +18,7 @@ const Header = () => {
           padding: "0 30px",
         }}
       >
-        <img
-          src="https://i.imgur.com/DKV9GN7.png"
-          alt="To the New Logo"
-          width="80px"
-        />
+        <img src={logo} alt="To the New Logo" width="80px" />
         <div
           style={{
             display: "flex",

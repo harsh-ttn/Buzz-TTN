@@ -1,9 +1,10 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
+import UserInfo from "../components/UserInfo";
 
 const Home = () => {
   return (
-    <>
+    <Container maxWidth="lg">
       <Grid container direction="row" spacing={1}>
         <Grid
           style={{ backgroundColor: "red", textAlign: "center" }}
@@ -11,6 +12,7 @@ const Home = () => {
           xs={3}
         >
           <p>Left Sidebar</p>
+          <UserInfo />
         </Grid>
         <Grid
           style={{ backgroundColor: "green", textAlign: "center" }}
@@ -27,7 +29,7 @@ const Home = () => {
           <p>Right Sidebar</p>
         </Grid>
       </Grid>
-    </>
+    </Container>
   );
 };
 

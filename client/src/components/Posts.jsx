@@ -22,18 +22,24 @@ const Posts = () => {
 
   return (
     <>
-      {posts.map((post) => (
-        <Post
-          key={post._id}
-          content={post.content}
-          image={post.image}
-          author={post.author}
-          likes={post.likes}
-          dislikes={post.dislikes}
-          comments={post.comments}
-          createAt={post.createdAt}
-        />
-      ))}
+      {posts.length === 0 ? (
+        <h6>No posts found</h6>
+      ) : (
+        <>
+          {posts.map((post) => (
+            <Post
+              key={post._id}
+              content={post.content}
+              image={post.image}
+              author={post.author}
+              likes={post.likes}
+              dislikes={post.dislikes}
+              comments={post.comments}
+              createAt={post.createdAt}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 };

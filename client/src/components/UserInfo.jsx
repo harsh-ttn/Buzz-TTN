@@ -4,7 +4,7 @@ import userInfoBg from "../assets/user-info-bg.jpg";
 
 const UserInfo = () => {
   return (
-    <Card>
+    <Card style={{ marginBottom: 30 }}>
       <CardMedia style={{ position: "relative" }}>
         <img src={userInfoBg} alt="user-info-bg" width="100%" />
         <Avatar

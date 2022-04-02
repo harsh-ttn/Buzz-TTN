@@ -5,6 +5,7 @@ import CreatePost from "../components/CreatePost";
 import Post from "../components/Post";
 import Contacts from "../components/Contacts";
 import Suggestions from "../components/Suggestions";
+import Events from "../components/Events";
 
 const Home = () => {
   return (
@@ -13,11 +14,17 @@ const Home = () => {
         <Grid style={{ textAlign: "center" }} item xs={3}>
           {/* <p>Left Sidebar</p> */}
           <UserInfo />
+          <Events />
         </Grid>
         <Grid style={{ textAlign: "center" }} item xs={6}>
           {/* <p>Middle</p> */}
           <CreatePost />
-          <div style={{ padding: "30px 0" }}>
+          <div
+            style={{
+              margin:
+                "30px 0" /* ,  height: "90vh", overflowX: "hidden", overflowY: "auto" */,
+            }}
+          >
             <Post />
             <Post />
             <Post />

@@ -16,9 +16,18 @@ import {
   ThumbDownAltOutlined,
   ThumbDownAlt,
   CommentOutlined,
+  CommentSharp,
 } from "@material-ui/icons";
 
-const Post = () => {
+const Post = ({
+  content,
+  image,
+  author,
+  likes,
+  dislikes,
+  comments,
+  createdAt,
+}) => {
   return (
     <div style={{ padding: "15px 0" }}>
       <Card>
@@ -29,16 +38,17 @@ const Post = () => {
               <MoreVert />
             </IconButton>
           }
-          title="Username"
-          subheader="April 2, 2022"
+          titleTypographyProps={{ variant: "h6" }}
+          title={author}
+          subheader={createdAt}
         />
 
+        <p style={{ textAlign: "left", padding: " 0 10px 10px 20px" }}>
+          {content}
+        </p>
+
         <CardMedia>
-          <img
-            src="https://w.wallhaven.cc/full/6o/wallhaven-6ozkzl.jpg"
-            alt="post-image"
-            width="100%"
-          />
+          <img src={image} alt="post-image" width="100%" />
         </CardMedia>
 
         <CardContent>
@@ -71,7 +81,7 @@ const Post = () => {
                 >
                   <ThumbUpAlt style={{ width: 15 }} />
                 </Avatar>
-                <p>123</p>
+                <p>{likes}</p>
               </div>
 
               <div
@@ -85,10 +95,10 @@ const Post = () => {
                 >
                   <ThumbDownAlt style={{ width: 15 }} />
                 </Avatar>
-                <p>234</p>
+                <p>{dislikes}</p>
               </div>
             </div>
-            <p>1 comment</p>
+            <p>{comments.length} comment</p>
           </div>
           <Divider />
           <div

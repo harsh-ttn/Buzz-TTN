@@ -47,9 +47,13 @@ const Post = ({
           {content}
         </p>
 
-        <CardMedia>
-          <img src={image} alt="post-image" width="100%" />
-        </CardMedia>
+        {image === "" ? (
+          <></>
+        ) : (
+          <CardMedia>
+            <img src={image} alt="post-image" width="100%" />
+          </CardMedia>
+        )}
 
         <CardContent>
           <div

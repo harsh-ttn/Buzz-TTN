@@ -48,13 +48,13 @@ const Events = () => {
             {showMoreRecent ? (
               <>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <SettingsInputAntenna style={{ fontSize: 20 }} /> Harsh Tanwar
                 </li>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
                 </li>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <People style={{ fontSize: 20 }} /> Diptamon Chakrobarty
                 </li>
                 <li
                   style={{ color: "blue", cursor: "pointer" }}
@@ -96,13 +96,13 @@ const Events = () => {
             {showMoreGroups ? (
               <>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <SettingsInputAntenna style={{ fontSize: 20 }} /> Harsh Tanwar
                 </li>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
                 </li>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <People style={{ fontSize: 20 }} /> Diptamon Chakrobarty
                 </li>
                 <li
                   style={{ color: "blue", cursor: "pointer" }}
@@ -136,21 +136,21 @@ const Events = () => {
               <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
             </li>
             <li>
-              <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+              <EventAvailable style={{ fontSize: 20 }} /> Mobile conference 2022
             </li>
             <li>
-              <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+              <People style={{ fontSize: 20 }} /> Freelance developers
             </li>
             {showMoreSubs ? (
               <>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <SettingsInputAntenna style={{ fontSize: 20 }} /> Harsh Tanwar
                 </li>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
                 </li>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+                  <People style={{ fontSize: 20 }} /> Diptamon Chakrobarty
                 </li>
                 <li
                   style={{ color: "blue", cursor: "pointer" }}

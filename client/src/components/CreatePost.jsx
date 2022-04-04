@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from "react";
-import { Paper, Avatar, TextField } from "@material-ui/core";
+import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { PhotoLibrary } from "@material-ui/icons";
 import axios from "axios";
 import { DataContext } from "../context/context";
@@ -63,16 +63,18 @@ const CreatePost = () => {
             }}
           />
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <PhotoLibrary style={{ color: "green" }} />
-          <p>Photo/Video</p>
-        </div>
+        <IconButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <PhotoLibrary style={{ color: "green" }} />
+            <p>Photo/Video</p>
+          </div>
+        </IconButton>
         <button type="submit"></button>
       </Paper>
     </form>

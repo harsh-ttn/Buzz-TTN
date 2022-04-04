@@ -12,10 +12,16 @@ const Home = () => {
   return (
     <Container maxWidth="lg">
       <Grid container direction="row" spacing={4}>
-        <Grid style={{ textAlign: "center" }} item xs={3}>
+        <Grid
+          style={{ textAlign: "center", position: "sticky", top: 0 }}
+          item
+          xs={3}
+        >
           {/* <p>Left Sidebar</p> */}
-          <UserInfo />
-          <Events />
+          <div style={{ textAlign: "center", position: "sticky", top: 0 }}>
+            <UserInfo />
+            <Events />
+          </div>
         </Grid>
         <Grid style={{ textAlign: "center" }} item xs={6}>
           {/* <p>Middle</p> */}
@@ -31,8 +37,10 @@ const Home = () => {
         </Grid>
         <Grid style={{ textAlign: "center" }} item xs={3}>
           {/* <p>Right Sidebar</p> */}
-          <Contacts style={{ paddingBottom: 20 }} />
-          <Suggestions />
+          <div style={{ textAlign: "center", position: "sticky", top: 0 }}>
+            <Contacts style={{ paddingBottom: 20 }} />
+            <Suggestions />
+          </div>
         </Grid>
       </Grid>
     </Container>

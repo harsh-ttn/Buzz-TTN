@@ -11,8 +11,8 @@ const Posts = () => {
     const getPosts = async () => {
       try {
         const res = await axios.get("http://localhost:8080/api/posts");
-        /* console.log(res.data); */
-        setPosts(res.data);
+        console.log(res.data);
+        setPosts(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);
       }
@@ -29,6 +29,7 @@ const Posts = () => {
           {posts.map((post) => (
             <Post
               key={post._id}
+              id={post._id}
               content={post.content}
               image={post.image}
               author={post.author}

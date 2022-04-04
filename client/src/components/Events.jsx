@@ -54,7 +54,7 @@ const Events = () => {
                   <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
                 </li>
                 <li>
-                  <People style={{ fontSize: 20 }} /> Diptamon Chakrobarty
+                  <People style={{ fontSize: 20 }} /> Diptamon chakrabarty
                 </li>
                 <li
                   style={{ color: "blue", cursor: "pointer" }}
@@ -102,7 +102,7 @@ const Events = () => {
                   <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
                 </li>
                 <li>
-                  <People style={{ fontSize: 20 }} /> Diptamon Chakrobarty
+                  <People style={{ fontSize: 20 }} /> Diptamon chakrabarty
                 </li>
                 <li
                   style={{ color: "blue", cursor: "pointer" }}
@@ -150,7 +150,7 @@ const Events = () => {
                   <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
                 </li>
                 <li>
-                  <People style={{ fontSize: 20 }} /> Diptamon Chakrobarty
+                  <People style={{ fontSize: 20 }} /> Diptamon chakrabarty
                 </li>
                 <li
                   style={{ color: "blue", cursor: "pointer" }}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper, Avatar } from "@material-ui/core";
 
-const UserContact = () => {
+const UserContact = ({ name }) => {
   return (
     <div>
       <Paper
@@ -13,7 +13,7 @@ const UserContact = () => {
         }}
       >
         <Avatar style={{ width: 35, height: 35, margin: "10px 0" }} />
-        <p>Username</p>
+        <p>{name}</p>
       </Paper>
     </div>
   );

@@ -3,7 +3,7 @@ import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import UserSuggestion from "./UserSuggestion";
 
-const Suggestions = () => {
+const Suggestions = ({ users }) => {
   const [openSearch, setOpenSearch] = useState(false);
 
   const toggleSearch = () => {
@@ -49,14 +49,9 @@ const Suggestions = () => {
           )}
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
-          <UserSuggestion />
-          <UserSuggestion />
-          <UserSuggestion />
-          <UserSuggestion />
-          <UserSuggestion />
-          <UserSuggestion />
-          <UserSuggestion />
-          <UserSuggestion />
+          {users.map((user) => (
+            <UserSuggestion key={user.id} name={user.name} />
+          ))}
         </div>
       </Paper>
     </div>

@@ -3,7 +3,7 @@ import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import UserContact from "./UserContact";
 
-const Contacts = () => {
+const Contacts = ({ users }) => {
   const [openSearch, setOpenSearch] = useState(false);
 
   const toggleSearch = () => {
@@ -50,17 +50,9 @@ const Contacts = () => {
           )}
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
-          <UserContact />
+          {users.map((user) => (
+            <UserContact key={user.id} name={user.name} />
+          ))}
         </div>
       </Paper>
     </div>

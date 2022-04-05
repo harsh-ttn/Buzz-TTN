@@ -1,0 +1,24 @@
+#link-signin{
+    text-decoration: none;
+    cursor: pointer;
+    color: grey;
+}
+.form{
+    display: flex;
+    justify-content: center ;
+    background: rgba(236,236,236,0.7);
+}
+.body{    
+    height: 100%;
+    width: 60%;
+    box-shadow: 0rem 0rem 2rem 0.1rem grey;
+    margin: 2rem auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.container{
+    height: 80%;
+    width: 60%;
+    margin: 2rem auto;
+           
+}

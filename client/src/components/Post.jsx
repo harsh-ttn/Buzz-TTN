@@ -42,6 +42,7 @@ const Post = ({
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [openComment, setOpenComment] = useState(false);
+  const [comment, setComment] = useState("");
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -49,14 +50,6 @@ const Post = ({
   const handleClose = (e) => {
     setAnchorEl(null);
   };
-
-  /* const updatePost = async (postId) => {
-    try {
-      await axios.put(`http://localhost:8080/api/posts/${postId}`);
-    } catch (error) {
-      console.log(`Error ${error}`);
-    }
-  }; */
 
   const likePost = async (postId, condition) => {
     if (condition === "yes") {
@@ -129,6 +122,21 @@ const Post = ({
       await axios.delete(`http://localhost:8080/api/posts/${postId}`);
       setPostCreated((p) => !p);
       console.log("Post deleted");
+    } catch (error) {
+      console.log(`Error ${error}`);
+    }
+  };
+
+  const createComment = async (e, postId) => {
+    e.preventDefault();
+    try {
+      const sendComment = async () => {
+        await axios.put(`http://localhost:8080/api/posts/${postId}`, {
+          comment: comment,
+        });
+        console.log(`Comment Added`);
+      };
+      sendComment();
     } catch (error) {
       console.log(`Error ${error}`);
     }
@@ -318,21 +326,32 @@ const Post = ({
               >
                 <Avatar />
                 <div style={{ flex: 1, padding: "0 5px 0 10px" }}>
-                  <input
-                    type="text"
-                    name="comment"
-                    placeholder="Write a comment..."
-                    id="comment"
-                    style={{
-                      minWidth: "200px",
-                      width: "90%",
-                      backgroundColor: "lightgrey",
-                      border: "none",
-                      borderRadius: "10px",
-                      outline: "none",
-                      padding: 12,
+                  <form
+                    onSubmit={(e) => {
+                      createComment(e, id);
                     }}
-                  />
+                  >
+                    <input
+                      type="text"
+                      name="comment"
+                      placeholder="Write a comment..."
+                      id="comment"
+                      value={comment}
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                        console.log(e.target.value);
+                      }}
+                      style={{
+                        minWidth: "200px",
+                        width: "90%",
+                        backgroundColor: "lightgrey",
+                        border: "none",
+                        borderRadius: "10px",
+                        outline: "none",
+                        padding: 12,
+                      }}
+                    />
+                  </form>
                 </div>
               </div>
             </>

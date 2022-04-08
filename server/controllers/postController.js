@@ -1,4 +1,5 @@
 import Post from "../schemas/postSchema.js";
+import cloudinary from "../utils/cloudinaryUtils.js";
 
 export const getPosts = async (req, res) => {
   try {
@@ -11,7 +12,15 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   try {
-    const { content, image, author, likes, dislikes, comments } = req.body;
+    let { content, image, author, likes, dislikes, comments } = req.body;
+
+    if (image !== "") {
+      const fileStr = image;
+      const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr);
+      image = uploadedResponse.url;
+      console.log(uploadedResponse);
+    }
+    
     const post = new Post({
       content: content,
       image: image,

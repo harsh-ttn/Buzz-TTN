@@ -4,16 +4,21 @@ import { PhotoLibrary } from "@material-ui/icons";
 import axios from "axios";
 import { DataContext } from "../context/context";
 
+const initialState = {
+  content: "",
+  image: "",
+  author: "Harsh",
+};
 const CreatePost = () => {
-  const [formData, setFormData] = useState({
-    content: "",
-    image: "",
-    author: "Harsh",
-  });
+  const [formData, setFormData] = useState(initialState);
   let { content, image, author } = formData;
   const { postCreated, setPostCreated } = useContext(DataContext);
+  //cloudinray
+  const [fileInput, setFileInput] = useState("");
+  const [fileName, setFileName] = useState("");
+  //
 
-  const contentRef = useRef();
+  const fileRef = useRef();
 
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -25,10 +30,37 @@ const CreatePost = () => {
       await axios.post("http://localhost:8080/api/posts", formData);
       console.log("Post Created", formData);
       setPostCreated((p) => !p);
-      contentRef.current.value = "";
+      setFileInput("");
+      setFileName("");
+      setFormData(initialState);
     } catch (error) {
       console.log(`Error ${error}`);
     }
+  };
+  //cloudinray
+  const handleFileInputChange = (e) => {
+    if (e.target.files[0].size > 10000000) {
+      setFileName("File Size greater than 10mb");
+      setFileInput("");
+      return;
+    }
+    const file = e.target.files[0];
+    previewFile(file);
+    setFileInput(e.target.value);
+    setFileName(e.target.files[0].name);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setFormData((prev) => ({ ...prev, ["image"]: reader.result }));
+    };
+  };
+  //
+
+  const handleFile = () => {
+    fileRef.current.click();
   };
 
   return (
@@ -37,15 +69,15 @@ const CreatePost = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          flexWrap: "wrap",
           justifyContent: "space-around",
           alignItems: "center",
           padding: "10px",
         }}
       >
         <Avatar />
-        <div style={{ flex: 1, padding: "0 5px 0 10px" }}>
+        <div style={{ flex: 1, padding: "10px 5px 0 10px" }}>
           <input
-            ref={contentRef}
             type="text"
             name="content"
             placeholder="Start a post..."
@@ -63,18 +95,37 @@ const CreatePost = () => {
             }}
           />
         </div>
-        <IconButton>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <PhotoLibrary style={{ color: "green" }} />
-            <p>Photo/Video</p>
-          </div>
-        </IconButton>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <IconButton onClick={handleFile}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <PhotoLibrary style={{ color: "green" }} />
+              <input
+                ref={fileRef}
+                type="file"
+                name="image"
+                value={fileInput}
+                onChange={handleFileInputChange}
+                className="form-input"
+                style={{ display: "none" }}
+              />
+              Photo/Video
+            </div>
+          </IconButton>
+          {fileName ? fileName : <></>}
+        </div>
         <button type="submit"></button>
       </Paper>
     </form>

@@ -55,9 +55,12 @@ const Post = ({
   const likePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
-          likes: postLikes + 1,
-        });
+        await axios.put(
+          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
+          {
+            likes: postLikes + 1,
+          }
+        );
         setLiked(true);
         setPostLikes((p) => p + 1);
         setPostCreated((p) => !p);
@@ -70,9 +73,12 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
-          likes: postLikes - 1,
-        });
+        await axios.put(
+          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
+          {
+            likes: postLikes - 1,
+          }
+        );
         setPostCreated((p) => !p);
         setLiked(false);
         setPostLikes((p) => p - 1);
@@ -86,9 +92,12 @@ const Post = ({
   const dislikePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
-          dislikes: postDislikes + 1,
-        });
+        await axios.put(
+          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
+          {
+            dislikes: postDislikes + 1,
+          }
+        );
         setDisliked(true);
         setPostDislikes((p) => p + 1);
         setPostCreated((p) => !p);
@@ -101,9 +110,12 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
-          dislikes: postDislikes - 1,
-        });
+        await axios.put(
+          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
+          {
+            dislikes: postDislikes - 1,
+          }
+        );
         setPostCreated((p) => !p);
         setDisliked(false);
         setPostDislikes((p) => p - 1);
@@ -120,7 +132,9 @@ const Post = ({
 
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`);
+      await axios.delete(
+        `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`
+      );
       setPostCreated((p) => !p);
       console.log("Post deleted");
     } catch (error) {
@@ -132,9 +146,12 @@ const Post = ({
     e.preventDefault();
     try {
       const sendComment = async () => {
-        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
-          comment: comment,
-        });
+        await axios.put(
+          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
+          {
+            comment: comment,
+          }
+        );
         console.log(`Comment Added`);
       };
       sendComment();
@@ -169,13 +186,15 @@ const Post = ({
                 </Menu>
               </>
             }
-            titleTypographyProps={{ variant: "h6" }}
+            titleTypographyProps={{
+              style: { fontSize: "1.3rem", float: "left" },
+            }}
             title={author}
             subheader={createdAt}
           />
         </div>
 
-        <p style={{ textAlign: "left", padding: 15, fontSize: 16 }}>
+        <p style={{ textAlign: "left", padding: 15, fontSize: "1.1rem" }}>
           {content}
         </p>
 

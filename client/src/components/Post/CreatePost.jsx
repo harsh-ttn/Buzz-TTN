@@ -88,7 +88,7 @@ const CreatePost = () => {
           padding: "10px",
         }}
       >
-        <Avatar />
+        <Avatar src={user.userImage} />
         <div style={{ flex: 1, padding: "10px 5px 0 10px" }}>
           <input
             type="text"
@@ -105,6 +105,7 @@ const CreatePost = () => {
               borderRadius: "10px",
               outline: "none",
               padding: 12,
+              color: "black",
             }}
           />
         </div>

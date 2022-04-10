@@ -22,6 +22,7 @@ const Suggestions = ({ users }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
+            flexWrap: "wrap",
             alignItems: "center",
             padding: "10px 15px",
           }}

@@ -27,7 +27,7 @@ const Events = () => {
 
   return (
     <div>
-      <Paper style={{ padding: "0 30px" }}>
+      <Paper style={{ padding: "0 10%" }}>
         <div style={{ textAlign: "left", padding: "20px 0" }}>
           <h4>Recent</h4>
           <ul
@@ -37,27 +37,30 @@ const Events = () => {
             }}
           >
             <li>
-              <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+              <SettingsInputAntenna style={{ fontSize: "1.2rem" }} />{" "}
+              #javascript
             </li>
             <li>
-              <EventAvailable style={{ fontSize: 20 }} /> Mobile conference 2022
+              <EventAvailable style={{ fontSize: "1.2rem" }} /> Mobile
+              conference 2022
             </li>
             <li>
-              <People style={{ fontSize: 20 }} /> Freelance developers
+              <People style={{ fontSize: "1.2rem" }} /> Freelance developers
             </li>
             {showMoreRecent ? (
               <>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> Harsh Tanwar
+                  <SettingsInputAntenna style={{ fontSize: "1.2rem" }} /> Harsh
+                  Tanwar
                 </li>
                 <li>
-                  <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
+                  <EventAvailable style={{ fontSize: "1.2rem" }} /> Garv Tomar
                 </li>
                 <li>
-                  <People style={{ fontSize: 20 }} /> Diptamon chakrabarty
+                  <People style={{ fontSize: "1.2rem" }} /> Diptamon chakrabarty
                 </li>
                 <li
-                  style={{ color: "blue", cursor: "pointer" }}
+                  style={{ color: "#2b7fd3", cursor: "pointer" }}
                   onClick={() => toggleShowMore("recent")}
                 >
                   <ExpandLess />
@@ -66,7 +69,7 @@ const Events = () => {
               </>
             ) : (
               <li
-                style={{ color: "blue", cursor: "pointer" }}
+                style={{ color: "#2b7fd3", cursor: "pointer" }}
                 onClick={() => toggleShowMore("recent")}
               >
                 <ExpandMore />
@@ -85,27 +88,30 @@ const Events = () => {
             }}
           >
             <li>
-              <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+              <SettingsInputAntenna style={{ fontSize: "1.2rem" }} />{" "}
+              #javascript
             </li>
             <li>
-              <EventAvailable style={{ fontSize: 20 }} /> Mobile conference 2022
+              <EventAvailable style={{ fontSize: "1.2rem" }} /> Mobile
+              conference 2022
             </li>
             <li>
-              <People style={{ fontSize: 20 }} /> Freelance developers
+              <People style={{ fontSize: "1.2rem" }} /> Freelance developers
             </li>
             {showMoreGroups ? (
               <>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> Harsh Tanwar
+                  <SettingsInputAntenna style={{ fontSize: "1.2rem" }} /> Harsh
+                  Tanwar
                 </li>
                 <li>
-                  <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
+                  <EventAvailable style={{ fontSize: "1.2rem" }} /> Garv Tomar
                 </li>
                 <li>
-                  <People style={{ fontSize: 20 }} /> Diptamon chakrabarty
+                  <People style={{ fontSize: "1.2rem" }} /> Diptamon chakrabarty
                 </li>
                 <li
-                  style={{ color: "blue", cursor: "pointer" }}
+                  style={{ color: "#2b7fd3", cursor: "pointer" }}
                   onClick={() => toggleShowMore("groups")}
                 >
                   <ExpandLess />
@@ -114,7 +120,7 @@ const Events = () => {
               </>
             ) : (
               <li
-                style={{ color: "blue", cursor: "pointer" }}
+                style={{ color: "#2b7fd3", cursor: "pointer" }}
                 onClick={() => toggleShowMore("groups")}
               >
                 <ExpandMore />
@@ -133,27 +139,30 @@ const Events = () => {
             }}
           >
             <li>
-              <SettingsInputAntenna style={{ fontSize: 20 }} /> #javascript
+              <SettingsInputAntenna style={{ fontSize: "1.2rem" }} />{" "}
+              #javascript
             </li>
             <li>
-              <EventAvailable style={{ fontSize: 20 }} /> Mobile conference 2022
+              <EventAvailable style={{ fontSize: "1.2rem" }} /> Mobile
+              conference 2022
             </li>
             <li>
-              <People style={{ fontSize: 20 }} /> Freelance developers
+              <People style={{ fontSize: "1.2rem" }} /> Freelance developers
             </li>
             {showMoreSubs ? (
               <>
                 <li>
-                  <SettingsInputAntenna style={{ fontSize: 20 }} /> Harsh Tanwar
+                  <SettingsInputAntenna style={{ fontSize: "1.2rem" }} /> Harsh
+                  Tanwar
                 </li>
                 <li>
-                  <EventAvailable style={{ fontSize: 20 }} /> Garv Tomar
+                  <EventAvailable style={{ fontSize: "1.2rem" }} /> Garv Tomar
                 </li>
                 <li>
-                  <People style={{ fontSize: 20 }} /> Diptamon chakrabarty
+                  <People style={{ fontSize: "1.2rem" }} /> Diptamon chakrabarty
                 </li>
                 <li
-                  style={{ color: "blue", cursor: "pointer" }}
+                  style={{ color: "#2b7fd3", cursor: "pointer" }}
                   onClick={() => toggleShowMore("subs")}
                 >
                   <ExpandLess />
@@ -162,7 +171,7 @@ const Events = () => {
               </>
             ) : (
               <li
-                style={{ color: "blue", cursor: "pointer" }}
+                style={{ color: "#2b7fd3", cursor: "pointer" }}
                 onClick={() => toggleShowMore("subs")}
               >
                 <ExpandMore />

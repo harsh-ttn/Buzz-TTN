@@ -27,7 +27,12 @@ const UserInfo = ({ user }) => {
           <p>Role in TTN</p>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+          }}
+        >
           <div>
             <p>234</p>
             <p>Post Views</p>

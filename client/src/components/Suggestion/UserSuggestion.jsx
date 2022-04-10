@@ -31,7 +31,7 @@ const UserSuggestion = ({ id, name }) => {
           </Link>
         </div>
         <IconButton>
-          <p style={{ color: "blue", fontSize: "0.7rem", float: "right" }}>
+          <p style={{ color: "#2b7fd3", fontSize: "0.7rem", float: "right" }}>
             <PersonAddOutlined />
           </p>
         </IconButton>

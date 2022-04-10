@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "../config/firebaseConfig";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../service/axios";
 
 const GLogin = () => {
   const navigate = useNavigate();
@@ -27,11 +27,7 @@ const GLogin = () => {
         password: "*#*#)@*!%@",
       };
 
-      /* await axios.post("http://localhost:8080/api/users", userData); */
-      await axios.post(
-        "https://buzz-app-ttn.herokuapp.com/api/users",
-        userData
-      );
+      await axios.post("/api/users", userData);
 
       localStorage.setItem("token", token);
       localStorage.setItem("user-data", JSON.stringify(userData));

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext } from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { PhotoLibrary } from "@material-ui/icons";
-import axios from "axios";
+import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
 
 const initialState = {
@@ -36,11 +36,7 @@ const CreatePost = () => {
     e.preventDefault();
     if (user) setFormData((prev) => ({ ...prev, ["author"]: user.name }));
     try {
-      /* await axios.post("http://localhost:8080/api/posts", formData); */
-      await axios.post(
-        "https://buzz-app-ttn.herokuapp.com/api/posts",
-        formData
-      );
+      await axios.post("/api/posts", formData);
       console.log("Post Created", formData);
       setPostCreated((p) => !p);
       setFileInput("");

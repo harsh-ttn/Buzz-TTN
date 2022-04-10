@@ -22,8 +22,9 @@ import {
   Delete,
   Edit,
 } from "@material-ui/icons";
-import axios from "axios";
+import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
+import Comments from "./Comments/CreateComment";
 
 const Post = ({
   id,
@@ -37,13 +38,27 @@ const Post = ({
   createdAt,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { postCreated, setPostCreated } = useContext(DataContext);
+  const { postCreated, setPostCreated, commentCreated, setCommentCreated } =
+    useContext(DataContext);
   const [postLikes, setPostLikes] = useState(likes);
   const [postDislikes, setPostDislikes] = useState(dislikes);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [openComment, setOpenComment] = useState(false);
-  const [comment, setComment] = useState("");
+  const [commentCount, setCommentCount] = useState(0);
+
+  useEffect(() => {
+    const getCommentCount = async () => {
+      try {
+        const res = await axios.get(`/api/commentsCount/${id}`);
+        console.log(res.data);
+        setCommentCount(res.data.data);
+      } catch (error) {
+        console.log(`Error ${error}`);
+      }
+    };
+    getCommentCount();
+  }, [commentCreated]);
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -55,12 +70,9 @@ const Post = ({
   const likePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(
-          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
-          {
-            likes: postLikes + 1,
-          }
-        );
+        await axios.put(`/api/posts/${postId}`, {
+          likes: postLikes + 1,
+        });
         setLiked(true);
         setPostLikes((p) => p + 1);
         setPostCreated((p) => !p);
@@ -73,12 +85,9 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(
-          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
-          {
-            likes: postLikes - 1,
-          }
-        );
+        await axios.put(`/api/posts/${postId}`, {
+          likes: postLikes - 1,
+        });
         setPostCreated((p) => !p);
         setLiked(false);
         setPostLikes((p) => p - 1);
@@ -92,12 +101,9 @@ const Post = ({
   const dislikePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(
-          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
-          {
-            dislikes: postDislikes + 1,
-          }
-        );
+        await axios.put(`/api/posts/${postId}`, {
+          dislikes: postDislikes + 1,
+        });
         setDisliked(true);
         setPostDislikes((p) => p + 1);
         setPostCreated((p) => !p);
@@ -110,12 +116,9 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(
-          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
-          {
-            dislikes: postDislikes - 1,
-          }
-        );
+        await axios.put(`/api/posts/${postId}`, {
+          dislikes: postDislikes - 1,
+        });
         setPostCreated((p) => !p);
         setDisliked(false);
         setPostDislikes((p) => p - 1);
@@ -132,29 +135,9 @@ const Post = ({
 
   const deletePost = async (postId) => {
     try {
-      await axios.delete(
-        `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`
-      );
+      await axios.delete(`/api/posts/${postId}`);
       setPostCreated((p) => !p);
       console.log("Post deleted");
-    } catch (error) {
-      console.log(`Error ${error}`);
-    }
-  };
-
-  const createComment = async (e, postId) => {
-    e.preventDefault();
-    try {
-      const sendComment = async () => {
-        await axios.put(
-          `https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`,
-          {
-            comment: comment,
-          }
-        );
-        console.log(`Comment Added`);
-      };
-      sendComment();
     } catch (error) {
       console.log(`Error ${error}`);
     }
@@ -254,7 +237,7 @@ const Post = ({
                 <p>{dislikes}</p>
               </div>
             </div>
-            <p>{comments.length} comment</p>
+            <p>{commentCount} comments</p>
           </div>
           <Divider />
           <div
@@ -331,45 +314,7 @@ const Post = ({
           {openComment ? (
             <>
               <Divider />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  padding: "10px",
-                }}
-              >
-                <Avatar />
-                <div style={{ flex: 1, padding: "0 5px 0 10px" }}>
-                  <form
-                    onSubmit={(e) => {
-                      createComment(e, id);
-                    }}
-                  >
-                    <input
-                      type="text"
-                      name="comment"
-                      placeholder="Write a comment..."
-                      id="comment"
-                      value={comment}
-                      onChange={(e) => {
-                        setComment(e.target.value);
-                        console.log(e.target.value);
-                      }}
-                      style={{
-                        minWidth: "200px",
-                        width: "90%",
-                        backgroundColor: "lightgrey",
-                        border: "none",
-                        borderRadius: "10px",
-                        outline: "none",
-                        padding: 12,
-                      }}
-                    />
-                  </form>
-                </div>
-              </div>
+              <Comments id={id} />
             </>
           ) : (
             <></>

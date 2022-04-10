@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import axios from "../../service/axios";
 import Post from "./Post";
 import { DataContext } from "../../context/context";
 
@@ -10,7 +10,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get("https://buzz-app-ttn.herokuapp.com/api/posts");
+        const res = await axios.get("/api/posts");
         console.log(res.data);
         setPosts(res.data.data);
       } catch (error) {

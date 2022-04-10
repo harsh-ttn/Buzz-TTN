@@ -5,10 +5,15 @@ import UserContact from "./UserContact";
 
 const Contacts = ({ users }) => {
   const [openSearch, setOpenSearch] = useState(false);
+  const [search, setSearch] = useState("");
 
   const toggleSearch = () => {
     setOpenSearch((p) => !p);
   };
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div style={{ marginBottom: 30 }}>
@@ -34,6 +39,8 @@ const Contacts = ({ users }) => {
                 name="search"
                 placeholder="Search"
                 id="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 style={{
                   minWidth: "100px",
                   width: "60%",
@@ -50,8 +57,8 @@ const Contacts = ({ users }) => {
           )}
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
-          {users.map((user) => (
-            <UserContact key={user.id} name={user.name} />
+          {filteredUsers.map((user) => (
+            <UserContact key={user.id} id={user.id} name={user.name} />
           ))}
         </div>
       </Paper>

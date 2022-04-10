@@ -23,7 +23,7 @@ import {
   Edit,
 } from "@material-ui/icons";
 import axios from "axios";
-import { DataContext } from "../context/context";
+import { DataContext } from "../../context/context";
 
 const Post = ({
   id,
@@ -145,7 +145,7 @@ const Post = ({
   return (
     <div style={{ paddingTop: 15 }}>
       <Card>
-        <div style={{ backgroundColor: "#f4f5ff" }}>
+        <div style={{ backgroundColor: "white" }}>
           <CardHeader
             style={{ padding: 10 }}
             avatar={<Avatar />}
@@ -161,10 +161,6 @@ const Post = ({
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {/* <MenuItem onClick={() => updatePost(id)}>
-                  <Edit style={{ color: "purple" }} />
-                  Update
-                </MenuItem> */}
                   <MenuItem onClick={() => deletePost(id)}>
                     <Delete style={{ color: "red" }} />
                     Delete

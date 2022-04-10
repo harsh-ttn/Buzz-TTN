@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Container, Grid } from "@material-ui/core";
-import UserInfo from "../components/UserInfo";
-import CreatePost from "../components/CreatePost";
-import Posts from "../components/Posts";
-import Contacts from "../components/Contacts";
-import Suggestions from "../components/Suggestions";
-import Events from "../components/Events";
+import UserInfo from "../components/LeftSidebar/UserInfo";
+import Posts from "../components/Post/Posts";
+import Contacts from "../components/Contact/Contacts";
+import Suggestions from "../components/Suggestion/Suggestions";
+import Events from "../components/LeftSidebar/Events";
 import axios from "axios";
 import Header from "../components/Header";
+import CreatePost from "../components/Post/CreatePost";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user-data"));
 
   useEffect(() => {
     const getUsers = async () => {
@@ -25,11 +26,12 @@ const Home = () => {
       }
     };
     getUsers();
+    console.log("Home page", user);
   }, []);
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <Container maxWidth="lg">
         <Grid container direction="row" spacing={4}>
           <Grid
@@ -39,7 +41,7 @@ const Home = () => {
           >
             {/* <p>Left Sidebar</p> */}
             <div style={{ textAlign: "center", position: "sticky", top: 0 }}>
-              <UserInfo />
+              <UserInfo user={user} />
               <Events />
             </div>
           </Grid>

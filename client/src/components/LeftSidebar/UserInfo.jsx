@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Avatar } from "@material-ui/core";
-import userInfoBg from "../assets/user-info-bg.jpg";
+import userInfoBg from "../../assets/user-info-bg.jpg";
 
-const UserInfo = () => {
+const UserInfo = ({ user }) => {
   return (
     <Card style={{ marginBottom: 30 }}>
       <CardMedia style={{ position: "relative" }}>
@@ -17,12 +17,13 @@ const UserInfo = () => {
             transform: "translate(-50%, -30%)",
             border: "3px solid white",
           }}
+          src={user.userImage}
         />
       </CardMedia>
 
       <CardContent>
         <div style={{ padding: "20px 0" }}>
-          <h4>Username</h4>
+          <h4>{user.name}</h4>
           <p>Role in TTN</p>
         </div>
 

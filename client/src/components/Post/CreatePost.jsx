@@ -2,7 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { PhotoLibrary } from "@material-ui/icons";
 import axios from "axios";
-import { DataContext } from "../context/context";
+import { DataContext } from "../../context/context";
 
 const initialState = {
   content: "",

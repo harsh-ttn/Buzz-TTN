@@ -1,9 +1,26 @@
-import React from "react";
-import { Avatar, AppBar } from "@material-ui/core";
+import React, { useState } from "react";
+import { Avatar, AppBar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Person, Textsms } from "@material-ui/icons";
 import logo from "../assets/ttn-logo-name.png";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ user }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = (e) => {
+    setAnchorEl(null);
+  };
+
+  const Logout = () => {
+    localStorage.clear();
+    navigate("/google");
+  };
+
   return (
     <>
       <AppBar
@@ -28,8 +45,25 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <p style={{ margin: "0 20px 0 10px" }}>Username</p>
+          <IconButton onClick={handleClick}>
+            <Avatar
+              style={{ height: "30px", width: "30px" }}
+              src={user.userImage}
+            />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={Logout}>
+              {/* <Delete style={{ color: "red" }} /> */}
+              Logout
+            </MenuItem>
+          </Menu>
+          <p style={{ marginRight: 20 }}>{user.name}</p>
           <Avatar style={{ height: "30px", width: "30px", marginRight: 10 }}>
             <Textsms style={{ width: 15, color: "black" }} />
           </Avatar>

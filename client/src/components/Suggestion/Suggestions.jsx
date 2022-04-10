@@ -5,10 +5,16 @@ import UserSuggestion from "./UserSuggestion";
 
 const Suggestions = ({ users }) => {
   const [openSearch, setOpenSearch] = useState(false);
+  const [search, setSearch] = useState("");
 
   const toggleSearch = () => {
     setOpenSearch((p) => !p);
   };
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div>
       <Paper>
@@ -33,6 +39,8 @@ const Suggestions = ({ users }) => {
                 name="search"
                 placeholder="Search"
                 id="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 style={{
                   minWidth: "100px",
                   width: "60%",
@@ -49,8 +57,8 @@ const Suggestions = ({ users }) => {
           )}
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
-          {users.map((user) => (
-            <UserSuggestion key={user.id} name={user.name} />
+          {filteredUsers.map((user) => (
+            <UserSuggestion key={user.id} id={user.id} name={user.name} />
           ))}
         </div>
       </Paper>

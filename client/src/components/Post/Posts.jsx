@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Post from "./Post";
-import { DataContext } from "../context/context";
+import { DataContext } from "../../context/context";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);

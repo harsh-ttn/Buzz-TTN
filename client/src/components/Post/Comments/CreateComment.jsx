@@ -50,21 +50,20 @@ const Comments = ({ id }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        alignItems: "center",
-        padding: "10px",
       }}
     >
       <div
         style={{
           display: "flex",
           flexDirection: "row",
+          flexWrap: "wrap",
           justifyContent: "space-around",
           alignItems: "center",
           padding: "10px",
         }}
       >
-        <Avatar />
-        <div style={{ flex: 1, padding: "0 5px 0 10px" }}>
+        <Avatar src={user.userImage} />
+        <div style={{ flex: 1, padding: "10px 5px 0 10px" }}>
           <form
             onSubmit={(e) => {
               createComment(e, id);
@@ -85,6 +84,7 @@ const Comments = ({ id }) => {
                 borderRadius: "10px",
                 outline: "none",
                 padding: 12,
+                color: "black",
               }}
             />
           </form>

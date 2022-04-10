@@ -9,6 +9,7 @@ const initialState = {
   image: "",
   author: "Harsh",
   authorImage: "",
+  authorId: "",
 };
 const CreatePost = () => {
   const [formData, setFormData] = useState(initialState);
@@ -28,6 +29,7 @@ const CreatePost = () => {
         ...prev,
         ["author"]: user.name,
         ["authorImage"]: user.userImage,
+        ["authorId"]: user._id,
       }));
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };

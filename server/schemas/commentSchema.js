@@ -9,7 +9,6 @@ const commentSchema = new mongoose.Schema(
     comment: {
       type: String,
       required: true,
-      minlength: 3,
     },
     author: {
       type: String,

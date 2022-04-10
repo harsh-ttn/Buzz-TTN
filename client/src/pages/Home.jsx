@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Container, Grid } from "@material-ui/core";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  Container,
+  Grid,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@material-ui/core";
 import UserInfo from "../components/LeftSidebar/UserInfo";
 import Posts from "../components/Post/Posts";
 import Contacts from "../components/Contact/Contacts";
@@ -9,14 +16,25 @@ import axios from "axios";
 import Header from "../components/Header";
 import CreatePost from "../components/Post/CreatePost";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../context/context";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
   var user = JSON.parse(localStorage.getItem("user-data"));
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [sortType, setSortType] = useState("");
+  const { postCreated, setPostCreated } = useContext(DataContext);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
-
     if (user == undefined) {
       navigate("/google");
       return;
@@ -64,11 +82,36 @@ const Home = () => {
                 <CreatePost />
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "column",
                     margin:
-                      "30px 0" /* ,  height: "90vh", overflowX: "hidden", overflowY: "auto" */,
+                      "5px 0" /* ,  height: "90vh", overflowX: "hidden", overflowY: "auto" */,
                   }}
                 >
-                  <Posts />
+                  <FormControl style={{ width: "30%" }}>
+                    <InputLabel id="demo-controlled-open-select-label">
+                      Sort by
+                    </InputLabel>
+                    <Select
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={open}
+                      onClose={handleClose}
+                      onOpen={handleOpen}
+                      value={sortType}
+                      onChange={(e) => {
+                        setSortType(e.target.value);
+                        setPostCreated((p) => !p);
+                      }}
+                    >
+                      <MenuItem value="latest">Latest</MenuItem>
+                      <MenuItem value="top">Top</MenuItem>
+                      <MenuItem value="liked">Most Liked</MenuItem>
+                      <MenuItem value="disliked">Most Disliked</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <Posts sortType={sortType} />
                 </div>
               </Grid>
               <Grid style={{ textAlign: "center" }} item xs={3}>

@@ -1,9 +1,31 @@
 import Post from "../schemas/postSchema.js";
 import cloudinary from "../utils/cloudinaryUtils.js";
 
+export const getPostsCount = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const count = await Post.count({ authorId: userId });
+
+    res.json({ status: "Post Count", data: count });
+  } catch (error) {
+    res.status(400).send(`Error ${error}`);
+  }
+};
+
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().limit(10).sort({ createdAt: -1 });
+    let sortType = req.query.sortType;
+    let posts;
+
+    if (sortType === "liked") {
+      posts = await Post.find().limit(10).sort({ likes: -1 });
+    } else if (sortType === "disliked") {
+      posts = await Post.find().limit(10).sort({ dislikes: -1 });
+    } else if (sortType === "top") {
+      posts = await Post.find().limit(10).sort({ likes: -1, dislikes: -1 });
+    } else {
+      posts = await Post.find().limit(10).sort({ createdAt: -1 });
+    }
     res.json({ status: "got All Posts", data: posts });
   } catch (error) {
     res.status(400).send(`Error ${error}`);
@@ -12,8 +34,16 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   try {
-    let { content, image, author, authorImage, likes, dislikes, comments } =
-      req.body;
+    let {
+      content,
+      image,
+      author,
+      authorId,
+      authorImage,
+      likes,
+      dislikes,
+      comments,
+    } = req.body;
 
     if (image !== "") {
       const fileStr = image;
@@ -26,6 +56,7 @@ export const createPost = async (req, res) => {
       content: content,
       image: image,
       author: author,
+      authorId: authorId,
       authorImage: authorImage,
       likes: likes,
       dislikes: dislikes,

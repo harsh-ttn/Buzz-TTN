@@ -22,7 +22,7 @@ router.post("/users", async (req, res) => {
     let user = await User.findOne({ email: email });
     if (user) {
       if (google) {
-        return res.send("Registered Google User");
+        return res.send(user);
       }
       return res.status(400).send("User already registered");
     }

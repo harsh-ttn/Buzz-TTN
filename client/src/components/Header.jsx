@@ -3,6 +3,7 @@ import { Avatar, AppBar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Person, Textsms } from "@material-ui/icons";
 import logo from "../assets/ttn-logo-name.png";
 import { useNavigate } from "react-router-dom";
+import { ExitToApp } from "@material-ui/icons";
 
 const Header = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -59,7 +60,7 @@ const Header = ({ user }) => {
             onClose={handleClose}
           >
             <MenuItem onClick={Logout}>
-              {/* <Delete style={{ color: "red" }} /> */}
+              <ExitToApp style={{ color: "peach" }} />
               Logout
             </MenuItem>
           </Menu>

@@ -18,9 +18,8 @@ import {
   ThumbDownAltOutlined,
   ThumbDownAlt,
   CommentOutlined,
-  CommentSharp,
+  Report,
   Delete,
-  Edit,
 } from "@material-ui/icons";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
@@ -31,10 +30,10 @@ const Post = ({
   content,
   image,
   author,
+  authorId,
   authorImage,
   likes,
   dislikes,
-  comments,
   createdAt,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -46,6 +45,10 @@ const Post = ({
   const [disliked, setDisliked] = useState(false);
   const [openComment, setOpenComment] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
+  const PostDate = new Date(createdAt).toLocaleString(undefined, {
+    timeZone: "Asia/Kolkata",
+  });
+  var user = JSON.parse(localStorage.getItem("user-data"));
 
   useEffect(() => {
     const getCommentCount = async () => {
@@ -148,7 +151,7 @@ const Post = ({
       <Card>
         <div style={{ backgroundColor: "white" }}>
           <CardHeader
-            style={{ padding: 10 }}
+            style={{ padding: 10, display: "flex", flexWrap: "wrap" }}
             avatar={<Avatar src={authorImage} />}
             action={
               <>
@@ -163,9 +166,18 @@ const Post = ({
                   onClose={handleClose}
                 >
                   <MenuItem onClick={() => deletePost(id)}>
-                    <Delete style={{ color: "red" }} />
-                    Delete
+                    <Report style={{ color: "darkgreen" }} />
+                    Report
                   </MenuItem>
+
+                  {user._id == authorId ? (
+                    <MenuItem onClick={() => deletePost(id)}>
+                      <Delete style={{ color: "darkred" }} />
+                      Delete
+                    </MenuItem>
+                  ) : (
+                    <></>
+                  )}
                 </Menu>
               </>
             }
@@ -173,14 +185,15 @@ const Post = ({
               style: { fontSize: "1.3rem", float: "left" },
             }}
             title={author}
-            subheader={createdAt}
           />
         </div>
 
+        <p style={{ textAlign: "left", paddingLeft: 70, fontSize: "0.75rem" }}>
+          {PostDate}
+        </p>
         <p style={{ textAlign: "left", padding: 15, fontSize: "1.1rem" }}>
           {content}
         </p>
-
         {image === "" ? (
           <></>
         ) : (
@@ -188,7 +201,6 @@ const Post = ({
             <img src={image} alt="post-image" width="100%" />
           </CardMedia>
         )}
-
         <CardContent style={{ padding: 0 }}>
           <div
             style={{
@@ -312,10 +324,10 @@ const Post = ({
           </div>
 
           {openComment ? (
-            <>
+            <div style={{ width: "100%" }}>
               <Divider />
               <Comments id={id} />
-            </>
+            </div>
           ) : (
             <></>
           )}

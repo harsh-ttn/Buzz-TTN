@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, CardMedia, CardContent, Avatar } from "@material-ui/core";
 import userInfoBg from "../../assets/user-info-bg.jpg";
+import axios from "../../service/axios";
+import { DataContext } from "../../context/context";
 
 const UserInfo = ({ user }) => {
+  const [postCount, setPostCount] = useState(0);
+  var user = JSON.parse(localStorage.getItem("user-data"));
+  const { postCreated, setPostCreated } = useContext(DataContext);
+
+  useEffect(() => {
+    const getPostCount = async () => {
+      try {
+        const res = await axios(`/api/postsCount/${user._id}`);
+        console.log(res.data);
+        setPostCount(res.data.data);
+      } catch (error) {
+        console.log(`Error ${error}`);
+      }
+    };
+    getPostCount();
+  }, [postCreated]);
+
   return (
     <Card style={{ marginBottom: 30 }}>
       <CardMedia style={{ position: "relative" }}>
@@ -34,13 +53,13 @@ const UserInfo = ({ user }) => {
           }}
         >
           <div>
-            <p>234</p>
+            <p>{postCount * 10}</p>
             <p>Post Views</p>
           </div>
           <div style={{ border: "1px solid grey" }}></div>
           <div>
-            <p>10</p>
-            <p>Post</p>
+            <p>{postCount}</p>
+            <p>Posts</p>
           </div>
         </div>
       </CardContent>

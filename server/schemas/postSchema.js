@@ -15,6 +15,9 @@ const postSchema = new mongoose.Schema(
       required: true,
       minlength: 3,
     },
+    authorId: {
+      type: String,
+    },
     authorImage: {
       type: String,
     },
@@ -25,9 +28,6 @@ const postSchema = new mongoose.Schema(
     dislikes: {
       type: Number,
       default: 0,
-    },
-    comments: {
-      type: Array,
     },
   },
   { timestamps: true }

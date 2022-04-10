@@ -27,10 +27,12 @@ const GLogin = () => {
         password: "*#*#)@*!%@",
       };
 
-      await axios.post("/api/users", userData);
+      const userDetails = await axios.post("/api/users", userData);
+
+      console.log(userDetails);
 
       localStorage.setItem("token", token);
-      localStorage.setItem("user-data", JSON.stringify(userData));
+      localStorage.setItem("user-data", JSON.stringify(userDetails.data));
 
       navigate("/");
     } catch (error) {

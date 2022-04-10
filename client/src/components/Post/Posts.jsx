@@ -3,14 +3,19 @@ import axios from "../../service/axios";
 import Post from "./Post";
 import { DataContext } from "../../context/context";
 
-const Posts = () => {
+const Posts = ({ sortType }) => {
   const [posts, setPosts] = useState([]);
   const { postCreated, setPostCreated } = useContext(DataContext);
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get("/api/posts");
+        let res;
+        if (sortType === "") {
+          res = await axios.get("/api/posts");
+        } else {
+          res = await axios.get(`/api/posts?sortType=${sortType}`);
+        }
         console.log(res.data);
         setPosts(res.data.data);
       } catch (error) {
@@ -33,11 +38,12 @@ const Posts = () => {
               content={post.content}
               image={post.image}
               author={post.author}
+              authorId={post.authorId}
               authorImage={post.authorImage}
               likes={post.likes}
               dislikes={post.dislikes}
               comments={post.comments}
-              createAt={post.createdAt}
+              createdAt={post.createdAt}
             />
           ))}
         </>

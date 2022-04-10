@@ -8,6 +8,7 @@ const initialState = {
   content: "",
   image: "",
   author: "Harsh",
+  authorImage: "",
 };
 const CreatePost = () => {
   const [formData, setFormData] = useState(initialState);
@@ -17,17 +18,29 @@ const CreatePost = () => {
   const [fileInput, setFileInput] = useState("");
   const [fileName, setFileName] = useState("");
   //
+  const user = JSON.parse(localStorage.getItem("user-data"));
 
   const fileRef = useRef();
 
   const onChange = (e) => {
+    if (user)
+      setFormData((prev) => ({
+        ...prev,
+        ["author"]: user.name,
+        ["authorImage"]: user.userImage,
+      }));
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    if (user) setFormData((prev) => ({ ...prev, ["author"]: user.name }));
     try {
-      await axios.post("http://localhost:8080/api/posts", formData);
+      /* await axios.post("http://localhost:8080/api/posts", formData); */
+      await axios.post(
+        "https://buzz-app-ttn.herokuapp.com/api/posts",
+        formData
+      );
       console.log("Post Created", formData);
       setPostCreated((p) => !p);
       setFileInput("");

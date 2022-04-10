@@ -10,7 +10,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/posts");
+        const res = await axios.get("https://buzz-app-ttn.herokuapp.com/api/posts");
         console.log(res.data);
         setPosts(res.data.data);
       } catch (error) {
@@ -33,6 +33,7 @@ const Posts = () => {
               content={post.content}
               image={post.image}
               author={post.author}
+              authorImage={post.authorImage}
               likes={post.likes}
               dislikes={post.dislikes}
               comments={post.comments}

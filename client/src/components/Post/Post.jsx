@@ -30,6 +30,7 @@ const Post = ({
   content,
   image,
   author,
+  authorImage,
   likes,
   dislikes,
   comments,
@@ -54,7 +55,7 @@ const Post = ({
   const likePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(`http://localhost:8080/api/posts/${postId}`, {
+        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
           likes: postLikes + 1,
         });
         setLiked(true);
@@ -69,7 +70,7 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(`http://localhost:8080/api/posts/${postId}`, {
+        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
           likes: postLikes - 1,
         });
         setPostCreated((p) => !p);
@@ -85,7 +86,7 @@ const Post = ({
   const dislikePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(`http://localhost:8080/api/posts/${postId}`, {
+        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
           dislikes: postDislikes + 1,
         });
         setDisliked(true);
@@ -100,7 +101,7 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(`http://localhost:8080/api/posts/${postId}`, {
+        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
           dislikes: postDislikes - 1,
         });
         setPostCreated((p) => !p);
@@ -119,7 +120,7 @@ const Post = ({
 
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/posts/${postId}`);
+      await axios.delete(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`);
       setPostCreated((p) => !p);
       console.log("Post deleted");
     } catch (error) {
@@ -131,7 +132,7 @@ const Post = ({
     e.preventDefault();
     try {
       const sendComment = async () => {
-        await axios.put(`http://localhost:8080/api/posts/${postId}`, {
+        await axios.put(`https://buzz-app-ttn.herokuapp.com/api/posts/${postId}`, {
           comment: comment,
         });
         console.log(`Comment Added`);
@@ -148,7 +149,7 @@ const Post = ({
         <div style={{ backgroundColor: "white" }}>
           <CardHeader
             style={{ padding: 10 }}
-            avatar={<Avatar />}
+            avatar={<Avatar src={authorImage} />}
             action={
               <>
                 <IconButton aria-label="settings" onClick={handleClick}>

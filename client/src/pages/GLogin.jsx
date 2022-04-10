@@ -27,7 +27,11 @@ const GLogin = () => {
         password: "*#*#)@*!%@",
       };
 
-      await axios.post("http://localhost:8080/api/users", userData);
+      /* await axios.post("http://localhost:8080/api/users", userData); */
+      await axios.post(
+        "https://buzz-app-ttn.herokuapp.com/api/users",
+        userData
+      );
 
       localStorage.setItem("token", token);
       localStorage.setItem("user-data", JSON.stringify(userData));

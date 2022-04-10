@@ -1,27 +1,39 @@
 import React, { useEffect, useContext } from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { PersonAddOutlined } from "@material-ui/icons";
 
 const UserSuggestion = ({ id, name }) => {
   return (
     <div>
       <Paper
         style={{
+          width: "100%",
           display: "flex",
-          justifyContent: "space-evenly",
+          justifyContent: "space-between",
           alignItems: "center",
           paddingRight: "10%",
         }}
       >
-        <Avatar style={{ width: 35, height: 35, margin: "10px 0" }} />
-        <Link
-          to={`/userDetail/${id}`}
-          style={{ textDecoration: "none", color: "black" }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
         >
-          <p>{name}</p>
-        </Link>
+          <Avatar style={{ width: 35, height: 35, margin: "10px 15px" }} />
+          <Link
+            to={`/userDetail/${id}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <p>{name}</p>
+          </Link>
+        </div>
         <IconButton>
-          <p style={{ color: "blue", fontSize: 12 }}> +Friened</p>
+          <p style={{ color: "blue", fontSize: "0.7rem", float: "right" }}>
+            <PersonAddOutlined />
+          </p>
         </IconButton>
       </Paper>
     </div>

@@ -12,7 +12,8 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   try {
-    let { content, image, author, likes, dislikes, comments } = req.body;
+    let { content, image, author, authorImage, likes, dislikes, comments } =
+      req.body;
 
     if (image !== "") {
       const fileStr = image;
@@ -20,11 +21,12 @@ export const createPost = async (req, res) => {
       image = uploadedResponse.url;
       console.log(uploadedResponse);
     }
-    
+
     const post = new Post({
       content: content,
       image: image,
       author: author,
+      authorImage: authorImage,
       likes: likes,
       dislikes: dislikes,
       comments: comments,
@@ -38,7 +40,8 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const { content, image, author, likes, dislikes, comments } = req.body;
+    const { content, image, author, authorImage, likes, dislikes, comments } =
+      req.body;
     const post = await Post.findByIdAndUpdate(
       req.params.id,
       {
@@ -46,6 +49,7 @@ export const updatePost = async (req, res) => {
           content: content,
           image: image,
           author: author,
+          authorImage: authorImage,
           likes: likes,
           dislikes: dislikes,
           comments: comments,

@@ -9,6 +9,28 @@
 }
 
 .App{
+  min-height: 100vh;
   height: 100%;
   background-color: #f0f2f5;
+}
+
+/*scrollbars */
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: "white";
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
 }

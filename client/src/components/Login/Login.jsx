@@ -1,17 +1,31 @@
 import React from "react";
 import './Login.css'
 import {Link} from 'react-router-dom';
-import { useState } from "react";
+import { useState,useEffect,useRef } from "react";
 import logo from './logoPng.png';
 import signin from './signin.png';
+import {LoginApiCall} from '../ApiCall/LoginApiCall';
 
 function Login(){
+
+    
 
     const[emailval,setEmailval]= useState('');
     const[pwdval,setPwdval]= useState('');
 
     const handleSubmit=(e)=>{
         e.preventDefault();
+        if(emailval!=='' || pwdval!==''){
+            if (/@tothenew.com\s*$/.test(emailval)) {
+                LoginApiCall({"email":emailval,"password":pwdval});
+            setEmailval('');
+            setPwdval('');
+             }
+             else{
+                 alert('You can only login with To The New email-ID. Kindly try again')
+             } 
+            
+        }
     }
 
     return (

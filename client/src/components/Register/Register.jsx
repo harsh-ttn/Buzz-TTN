@@ -2,6 +2,7 @@ import React from "react";
 import './Register.css'
 import {Link} from 'react-router-dom';
 import {useState} from 'react'
+import {RegisterApiCall} from '../ApiCall/RegisterApiCall';
 
 function Register(){
 
@@ -12,7 +13,26 @@ function Register(){
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-    }
+        if(name!=='' ||emailval!=='' ||pwdval!==''||confirmpwdval!==''){
+            if (/@tothenew.com\s*$/.test(emailval)) {
+                if(pwdval===confirmpwdval){
+                    RegisterApiCall({"name":name,"email":emailval,"password":pwdval,"google":false,"userImage":""})
+                    setName('');
+                    setEmailval('');
+                    setPwdval('');
+                    setConfirmPwdval('');
+                    alert('User signed-up successfully.Kindly Login!!')
+                }
+                else{
+                    alert("Passwords don't match. Kindly try again")
+                }
+             }
+             else{
+                 alert('User can only sign-up using To The New official email-ID. Kindly try again!!');
+             } 
+            
+            }                        
+        }
 
     return (
         <div className="register-main">
@@ -50,7 +70,7 @@ function Register(){
                                    value={confirmpwdval} 
                                    onChange={(e)=>{setConfirmPwdval(e.target.value)}}
                             />
-                            <button type="submit" id='sub-btn'>Sign Up</button>
+                            <button type="submit" id='sub-btn' >Sign Up</button>
                         </form>
                 </div>
                

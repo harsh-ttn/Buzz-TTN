@@ -140,7 +140,7 @@ const Post = ({
     try {
       await axios.delete(`/api/posts/${postId}`);
       setPostCreated((p) => !p);
-      console.log("Post deleted");
+      console.log("Post, Comments deleted");
     } catch (error) {
       console.log(`Error ${error}`);
     }

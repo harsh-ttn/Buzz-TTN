@@ -38,7 +38,7 @@ function Register(){
         <div className="register-main">
             <div className="top">
                     <h5>Already have an account?
-                    <Link id='link-signin' to='/'> Sign in</Link>
+                    <Link id='link-signin' to='/google'> Sign in</Link>
                     </h5>
                 </div>
             <div className="form">                

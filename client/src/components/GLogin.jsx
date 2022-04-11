@@ -3,6 +3,7 @@ import "../config/firebaseConfig";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "../service/axios";
+import "./Login/Login.css";
 
 const GLogin = () => {
   const navigate = useNavigate();
@@ -42,7 +43,9 @@ const GLogin = () => {
 
   return (
     <div>
-      <button onClick={loginWithGoogle}>Login With Google</button>
+      <button className="google_btn" onClick={loginWithGoogle}>
+        Login With Google
+      </button>
     </div>
   );
 };

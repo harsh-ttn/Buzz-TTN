@@ -1,4 +1,5 @@
 import Post from "../schemas/postSchema.js";
+import Comment from "../schemas/commentSchema.js";
 import cloudinary from "../utils/cloudinaryUtils.js";
 
 export const getPostsCount = async (req, res) => {
@@ -96,9 +97,11 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
     await post.delete();
-    res.json({ status: "Deleted Post", data: post });
+    await Comment.deleteMany({ postId: postId });
+    res.json({ status: "Deleted Post, Comments", data: post });
   } catch (error) {
     res.status(400).send(`Error ${error}`);
   }

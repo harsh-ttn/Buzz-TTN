@@ -2,6 +2,7 @@ import React from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
+
 const UserContact = ({ id, name }) => {
   return (
     <div>
@@ -15,7 +16,7 @@ const UserContact = ({ id, name }) => {
       >
         <Avatar style={{ width: 35, height: 35, margin: "10px 15px" }} />
         <Link
-          to={`/userDetail/${id}`}
+          to={`/userprofile/${id}`}
           style={{ textDecoration: "none", color: "black" }}
         >
           <p>{name}</p>

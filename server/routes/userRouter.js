@@ -5,8 +5,18 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
+//get all users
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.send(users);
+  } catch (error) {
+    res.status(400).send("Error getting User");
+  }
+});
+
 //get user
-router.get("/user/:id", auth, async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     res.send(user);
@@ -44,6 +54,34 @@ router.post("/users", async (req, res) => {
     res.header("x-auth-token", token).send(user);
   } catch (error) {
     res.send(error);
+  }
+});
+
+//update user
+router.put("/user/:id",async (req, res) => {
+  try {
+    const { name, userImage,designation,userWebsite,city,state, gender,zip, birthDate} =
+    req.body;
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: {
+        name: name,
+      userImage: userImage,
+      designation: designation,
+      userWebsite: userWebsite,
+      city: city,
+      state: state,
+      gender:gender,
+      zip:zip,
+      birthDate:birthDate
+      }, 
+    },
+    { new: true }
+  );
+  res.json({ status: "Updated User", data: user });
+  } catch (error) {
+    res.status(400).send("Error", error)
   }
 });
 

@@ -6,6 +6,8 @@ import Register from "./components/Register/Register";
 import DataProvider from "./context/context";
 import GLogin from "./components/GLogin";
 import DetailUser from "./pages/DetailUser";
+import SelfProfile  from "./components/UserProfile/profile/selfprofile";
+import Userprofile from "./components/UserProfile/profile/userprofile";
 
 function App() {
   return (
@@ -18,7 +20,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/google" element={<Login />} />
-            <Route path="/userDetail/:id" element={<DetailUser />} />
+            <Route path="/userprofile/:id" element={<Userprofile />} />
+            <Route path="/profile" element={<SelfProfile />} />
           </Routes>
         </Router>
       </DataProvider>

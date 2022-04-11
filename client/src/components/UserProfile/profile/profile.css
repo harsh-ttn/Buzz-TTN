@@ -1,0 +1,26 @@
+
+
+.cover{
+    height: 200px;
+    width: 100%;
+}
+.self {
+    
+    justify-items: center;
+    height: 90px;
+    padding-left: 20px;
+
+    
+}
+.profile-info h1{
+    font-size:xx-large;
+    padding: 9px;
+}
+.profile-info h5{
+    font-size:large;
+    padding: 9px;
+}
+.profile-info p{
+    font-size:large;
+    padding: 9px;
+}

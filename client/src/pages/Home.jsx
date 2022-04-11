@@ -12,7 +12,7 @@ import Posts from "../components/Post/Posts";
 import Contacts from "../components/Contact/Contacts";
 import Suggestions from "../components/Suggestion/Suggestions";
 import Events from "../components/LeftSidebar/Events";
-import axios from "axios";
+import axios from "../service/axios";
 import Header from "../components/Header";
 import CreatePost from "../components/Post/CreatePost";
 import { useNavigate } from "react-router-dom";
@@ -43,16 +43,15 @@ const Home = () => {
     const getUsers = async () => {
       try {
         const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/users"
+          "/api/users"
         );
-        console.log(res.data);
+        console.log("All users", res.data);
         setUsers(res.data);
       } catch (error) {
         console.log(`Error ${error}`);
       }
     };
     getUsers();
-    console.log("Home page", user);
   }, []);
 
   return (
@@ -61,7 +60,7 @@ const Home = () => {
         <></>
       ) : (
         <>
-          <Header user={user} />
+          <Header />
           <Container maxWidth="lg">
             <Grid container direction="row" spacing={4}>
               <Grid

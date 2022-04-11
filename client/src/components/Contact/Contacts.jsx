@@ -59,7 +59,7 @@ const Contacts = ({ users }) => {
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
           {filteredUsers.map((user) => (
-            <UserContact key={user.id} id={user.id} name={user.name} />
+            <UserContact key={user._id} id={user._id} name={user.name} />
           ))}
         </div>
       </Paper>

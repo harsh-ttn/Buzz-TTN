@@ -14,6 +14,14 @@ const userSchema = new mongoose.Schema(
     userImage: { type: String },
     google: { type: Boolean, defaultValue: false, required: true },
     password: { type: String, required: true, minlength: 5 },
+    designation: { type: String },
+    userWebsite: { type: String },
+    city: { type: String },
+    state: { type: String },
+    gender: { type: String },
+    zip: { type: Number },
+    birthDate: { type: Date },
+    
   },
   { timeStamp: true }
 );

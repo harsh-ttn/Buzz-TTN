@@ -2,6 +2,7 @@ import express from "express";
 import User from "../schemas/userSchema.js";
 import bcrypt from "bcrypt";
 import auth from "../middleware/auth.js";
+import cloudinary from "../utils/cloudinaryUtils.js";
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get("/users", async (req, res) => {
     const users = await User.find();
     res.send(users);
   } catch (error) {
-    res.status(400).send("Error getting User");
+    res.status(400).send("Error getting Users");
   }
 });
 
@@ -58,30 +59,50 @@ router.post("/users", async (req, res) => {
 });
 
 //update user
-router.put("/user/:id",async (req, res) => {
+router.put("/user/:id", async (req, res) => {
   try {
-    const { name, userImage,designation,userWebsite,city,state, gender,zip, birthDate} =
-    req.body;
-  const user = await User.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: {
-        name: name,
-      userImage: userImage,
-      designation: designation,
-      userWebsite: userWebsite,
-      city: city,
-      state: state,
-      gender:gender,
-      zip:zip,
-      birthDate:birthDate
-      }, 
-    },
-    { new: true }
-  );
-  res.json({ status: "Updated User", data: user });
+    let {
+      fName,
+      lName,
+      userImage,
+      designation,
+      userWebsite,
+      city,
+      state,
+      gender,
+      zip,
+      birthDate,
+    } = req.body;
+
+    const name = fName + " " + lName;
+
+    if (userImage !== "") {
+      const fileStr = userImage;
+      const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr);
+      userImage = uploadedResponse.url;
+      console.log(uploadedResponse);
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          name: name,
+          userImage: userImage,
+          designation: designation,
+          userWebsite: userWebsite,
+          city: city,
+          state: state,
+          gender: gender,
+          zip: zip,
+          birthDate: birthDate,
+        },
+      },
+      { new: true }
+    );
+    res.json({ status: "Updated User", data: user });
   } catch (error) {
-    res.status(400).send("Error", error)
+    res.status(400).send("Error", error);
   }
 });
 

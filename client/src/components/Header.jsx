@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Avatar, AppBar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Person, Textsms } from "@material-ui/icons";
 import logo from "../assets/ttn-logo-name.png";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ExitToApp } from "@material-ui/icons";
+import { DataContext } from "../context/context";
 
-const Header = ({ user }) => {
+const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { postUpdated, setPostUpdated } = useContext(DataContext);
 
   var user = JSON.parse(localStorage.getItem("user-data"));
 
   const navigate = useNavigate();
+
+  useEffect(() => {}, [postUpdated]);
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -39,7 +43,12 @@ const Header = ({ user }) => {
           marginBottom: "30px",
         }}
       >
-        <img onClick={()=>navigate("/")} src={logo} alt="To the New Logo" width="80px" />
+        <img
+          onClick={() => navigate("/")}
+          src={logo}
+          alt="To the New Logo"
+          width="80px"
+        />
         <div
           style={{
             display: "flex",
@@ -70,10 +79,10 @@ const Header = ({ user }) => {
           <Avatar style={{ height: "30px", width: "30px", marginRight: 10 }}>
             <Textsms style={{ width: 15, color: "black" }} />
           </Avatar>
-          <IconButton onClick={()=>navigate("/profile")}>
-          <Avatar style={{ height: "30px", width: "30px" }}>
-            <Person style={{ width: 20, color: "black" }} />
-          </Avatar>
+          <IconButton onClick={() => navigate("/profile")}>
+            <Avatar style={{ height: "30px", width: "30px" }}>
+              <Person style={{ width: 20, color: "black" }} />
+            </Avatar>
           </IconButton>
         </div>
       </AppBar>

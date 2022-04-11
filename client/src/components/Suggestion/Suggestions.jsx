@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import UserSuggestion from "./UserSuggestion";
+import axios from "../../service/axios";
 
-const Suggestions = ({ users }) => {
+const Suggestions = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await axios.get("/api/users");
+        console.log("All users", res.data);
+        setUsers(res.data);
+      } catch (error) {
+        console.log(`Error ${error}`);
+      }
+    };
+    getUsers();
+  }, []);
 
   const toggleSearch = () => {
     setOpenSearch((p) => !p);
@@ -59,7 +74,7 @@ const Suggestions = ({ users }) => {
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
           {filteredUsers.map((user) => (
-            <UserSuggestion key={user.id} id={user.id} name={user.name} />
+            <UserSuggestion key={user._id} id={user._id} name={user.name} />
           ))}
         </div>
       </Paper>

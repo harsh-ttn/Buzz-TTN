@@ -4,7 +4,7 @@ import userInfoBg from "../../assets/user-info-bg.jpg";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
 
-const UserInfo = ({ user }) => {
+const UserInfo = () => {
   const [postCount, setPostCount] = useState(0);
   var user = JSON.parse(localStorage.getItem("user-data"));
   const { postCreated, setPostCreated } = useContext(DataContext);
@@ -43,7 +43,7 @@ const UserInfo = ({ user }) => {
       <CardContent>
         <div style={{ padding: "20px 0" }}>
           <h4>{user.name}</h4>
-          <p>Role in TTN</p>
+          <p>{user.designation ? user.designation : "Role"} in TTN</p>
         </div>
 
         <div

@@ -24,7 +24,7 @@ const UserSuggestion = ({ id, name }) => {
         >
           <Avatar style={{ width: 35, height: 35, margin: "10px 15px" }} />
           <Link
-            to={`/userDetail/${id}`}
+            to={`/userprofile/${id}`}
             style={{ textDecoration: "none", color: "black" }}
           >
             <p>{name}</p>

@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import UserContact from "./UserContact";
+import axios from "../../service/axios";
 
-const Contacts = ({ users }) => {
+const Contacts = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await axios.get("/api/users");
+        console.log("All users", res.data);
+        setUsers(res.data);
+      } catch (error) {
+        console.log(`Error ${error}`);
+      }
+    };
+    getUsers();
+  }, []);
 
   const toggleSearch = () => {
     setOpenSearch((p) => !p);

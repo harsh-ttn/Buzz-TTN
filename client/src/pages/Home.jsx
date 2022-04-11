@@ -19,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../context/context";
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
   var user = JSON.parse(localStorage.getItem("user-data"));
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -37,21 +36,7 @@ const Home = () => {
   useEffect(() => {
     if (user == undefined) {
       navigate("/google");
-      return;
     }
-
-    const getUsers = async () => {
-      try {
-        const res = await axios.get(
-          "/api/users"
-        );
-        console.log("All users", res.data);
-        setUsers(res.data);
-      } catch (error) {
-        console.log(`Error ${error}`);
-      }
-    };
-    getUsers();
   }, []);
 
   return (
@@ -72,7 +57,7 @@ const Home = () => {
                 <div
                   style={{ textAlign: "center", position: "sticky", top: 0 }}
                 >
-                  <UserInfo user={user} />
+                  <UserInfo/>
                   <Events />
                 </div>
               </Grid>
@@ -118,8 +103,8 @@ const Home = () => {
                 <div
                   style={{ textAlign: "center", position: "sticky", top: 0 }}
                 >
-                  <Contacts style={{ paddingBottom: 20 }} users={users} />
-                  <Suggestions users={users} />
+                  <Contacts style={{ paddingBottom: 20 }} />
+                  <Suggestions />
                 </div>
               </Grid>
             </Grid>

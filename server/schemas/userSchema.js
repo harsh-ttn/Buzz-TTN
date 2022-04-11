@@ -14,14 +14,13 @@ const userSchema = new mongoose.Schema(
     userImage: { type: String },
     google: { type: Boolean, defaultValue: false, required: true },
     password: { type: String, required: true, minlength: 5 },
-    designation: { type: String },
-    userWebsite: { type: String },
-    city: { type: String },
-    state: { type: String },
-    gender: { type: String },
-    zip: { type: Number },
+    designation: { type: String, defaultValue: "someone" },
+    userWebsite: { type: String, defaultValue: "http://www.google.com" },
+    city: { type: String, defaultValue: "some" },
+    state: { type: String, defaultValue: "where" },
+    gender: { type: String, defaultValue: "male" },
+    zip: { type: Number, defaultValue: 100100 },
     birthDate: { type: Date },
-    
   },
   { timeStamp: true }
 );

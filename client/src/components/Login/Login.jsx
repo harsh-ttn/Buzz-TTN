@@ -27,18 +27,30 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (emailval !== "" || pwdval !== "") {
       if (/@tothenew.com\s*$/.test(emailval)) {
-        const user = await axios.post("/auth/login", {
-          email: emailval,
-          password: pwdval,
-        });
-        //console.log(user);
-        setEmailval("");
-        setPwdval("");
-        localStorage.setItem("token", user.data.token);
-        localStorage.setItem("user-data", JSON.stringify(user.data.user));
-        navigate("/");
+        console.log("Dikhja");
+        try {
+          const user = await axios.post("/auth/login", {
+            email: emailval,
+            password: pwdval,
+          });
+          console.log(user);
+          setEmailval("");
+          setPwdval("");
+          localStorage.setItem("token", user.data.token);
+          localStorage.setItem("user-data", JSON.stringify(user.data.user));
+          navigate("/");
+        } catch (error) {
+          setStatusBar({
+            status: "error",
+            open: true,
+            vertical: "top",
+            horizontal: "center",
+            message: error.response.data.errorMessage,
+          });
+        }
       } else {
         setStatusBar({
           status: "error",
@@ -94,7 +106,7 @@ function Login() {
               <img src={logo} id="img-id" alt="" />
             </div>
             <form onSubmit={handleSubmit}>
-              <label for="email1">Email :</label>
+              <label htmlFor="email1">Email :</label>
 
               <input
                 placeholder="TTN Email-ID"
@@ -106,7 +118,7 @@ function Login() {
                 id="email1"
               />
 
-              <label for="pwd1">Password :</label>
+              <label htmlFor="pwd1">Password :</label>
               <input
                 placeholder="Password"
                 type="password"

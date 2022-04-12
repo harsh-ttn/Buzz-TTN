@@ -136,7 +136,6 @@ const CreatePost = () => {
 
   return (
     <>
-    //snackbar
       {status === "success" ? (
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}

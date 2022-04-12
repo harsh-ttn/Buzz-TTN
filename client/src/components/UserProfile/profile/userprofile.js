@@ -8,6 +8,7 @@ import {
   Card,
   Grid,
   CardMedia,
+  Container,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { PersonAdd, PresentToAll } from "@material-ui/icons";
@@ -77,37 +78,29 @@ export default function Userprofile() {
   return (
     <>
       <Header />
-      <Grid
-        container
-        style={{
-          padding: "0 25px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Grid xs={9} item>
-          <Card style={{ maxWidth: "60vw" }}>
-            <CardMedia style={{ position: "relative" }}>
-              <img src={cover} alt="user-cover" width="100%" />
-              <Avatar
-                style={{
-                  height: "10vw",
-                  width: "10vw",
-                  position: "absolute",
-                  top: "80%",
-                  left: "50%",
-                  transform: "translate(-50%, -30%)",
-                  border: "3px solid white",
-                }}
-                src={userData.userImage}
-              />
-            </CardMedia>
-            <CardContent>
-              <form>
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          <Grid xs={9} item>
+            <Card style={{ maxWidth: "60vw", backgroundColor: "#E5E4E2" }}>
+              <CardMedia style={{ position: "relative" }}>
+                <img src={cover} alt="user-cover" width="100%" />
+                <Avatar
+                  style={{
+                    height: "10vw",
+                    width: "10vw",
+                    position: "absolute",
+                    top: "80%",
+                    left: "50%",
+                    transform: "translate(-50%, -30%)",
+                    border: "3px solid white",
+                  }}
+                  src={userData.userImage}
+                />
+              </CardMedia>
+              <CardContent>
                 <div
                   style={{
-                    backgroundColor: "#E5E4E2",
+                    paddingTop: "8vh",
                   }}
                 >
                   <Profile
@@ -136,14 +129,14 @@ export default function Userprofile() {
                     </Button>
                   </div>
                 </div>
-              </form>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid xs={3} item>
+            <Suggestions />
+          </Grid>
         </Grid>
-        <Grid xs={3} item>
-          <Suggestions />
-        </Grid>
-      </Grid>
+      </Container>
     </>
   );
 }

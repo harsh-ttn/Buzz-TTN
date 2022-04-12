@@ -13,9 +13,11 @@ import {
   Card,
 } from "@material-ui/core";
 import axios from "../../../service/axios";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, IconButton, Snackbar } from "@material-ui/core";
 import { AddPhotoAlternate } from "@material-ui/icons";
 import { DataContext } from "../../../context/context";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -51,11 +53,27 @@ export default function Formdetails() {
   const [fileName, setFileName] = useState("");
   //
   const { postUpdated, setPostUpdated } = useContext(DataContext);
+  const navigate = useNavigate();
+  const [statusBar, setStatusBar] = useState({
+    status: "success",
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "Creating Post ... ",
+  });
+  const { vertical, horizontal, open, status, message } = statusBar;
 
   useEffect(() => {
     console.log(values);
     if (user.userImage !== "") defaultValues.userImage = user.userImage;
   }, []);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStatusBar(false);
+  };
 
   //cloudinray
   const handleFileInputChange = (e) => {
@@ -99,10 +117,20 @@ export default function Formdetails() {
     try {
       console.log(values);
       const newUser = await axios.put(`/api/user/${user._id}`, values);
+      setStatusBar({
+        status: "success",
+        open: true,
+        vertical: "top",
+        horizontal: "center",
+        message: "User Updated",
+      });
       console.log("new user", newUser.data.data);
       localStorage.setItem("user-data", JSON.stringify(newUser.data.data));
       setPostUpdated((p) => !p);
       setValues(defaultValues);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
@@ -110,6 +138,30 @@ export default function Formdetails() {
 
   return (
     <>
+      {status === "success" ? (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="success">
+            {message}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
       <div>
         <Card>
           <CardContent>

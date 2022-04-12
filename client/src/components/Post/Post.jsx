@@ -55,7 +55,7 @@ const Post = ({
     status: "success",
     open: false,
     vertical: "top",
-    horizontal: "right",
+    horizontal: "center",
     message: "Creating Post ... ",
   });
   const { vertical, horizontal, open, status, message } = statusBar;
@@ -148,7 +148,7 @@ const Post = ({
         status: "success",
         open: true,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: "Post Deleted ...",
       });
       handleClose();
@@ -160,7 +160,7 @@ const Post = ({
         status: "error",
         open: true,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: "Erro deleting Post ...",
       });
     }
@@ -171,7 +171,7 @@ const Post = ({
       status: "success",
       open: true,
       vertical: "top",
-      horizontal: "right",
+      horizontal: "center",
       message: "Post reported...",
     });
   };

@@ -1,28 +1,8 @@
 import express from "express";
-import bcrypt from "bcrypt";
-import User from "../schemas/userSchema.js";
+import { login } from "../controllers/userController.js";
 
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email: email });
-    if (!user) return res.status(400).send("Invalid email or password");
-
-    if (user.google === true) {
-      return res.status(400).send("User must do Google Login");
-    }
-
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword)
-      return res.status(400).send("Invalid email or password");
-
-    const token = user.generateAuthToken();
-    res.header("x-auth-token", token).json({ user: user, token: token });
-  } catch (error) {
-    res.send(`Error: ${error}`);
-  }
-});
+router.post("/login", login);
 
 export default router;

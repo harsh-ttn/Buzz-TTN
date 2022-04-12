@@ -9,9 +9,10 @@ import {
   Grid,
   Button,
   IconButton,
+  Container,
 } from "@material-ui/core";
 import Header from "../../Header";
-
+import Suggestions from "../../Suggestion/Suggestions";
 
 const Selfprofile = () => {
   var user = JSON.parse(localStorage.getItem("user-data"));
@@ -19,36 +20,23 @@ const Selfprofile = () => {
   return (
     <>
       <Header />
-      <Card>
-        <CardContent>
-
-            <Grid container>
-              <Grid
-                xs={12}
-                sm={6}
-                lg={8}
-                md={7}
-                item
-                style={{
-                  padding: "0 25px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          <Grid xs={12} sm={6} lg={8} md={7} item>
+            <Card>
+              <CardContent>
                 <Profile name={user.name} />
 
                 <Formdetails />
-              </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
 
-              {/* <Grid xs={4} sm={4} item>
-                                <Suggestions />
-                            </Grid> */}
-            </Grid>
-
-        </CardContent>
-      </Card>
+          <Grid xs={3} sm={4} item>
+            <Suggestions />
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 };

@@ -25,7 +25,7 @@ const CreatePost = () => {
     status: "success",
     open: false,
     vertical: "top",
-    horizontal: "right",
+    horizontal: "center",
     message: "Creating Post ... ",
   });
   const { vertical, horizontal, open, status, message } = statusBar;
@@ -52,7 +52,7 @@ const CreatePost = () => {
         status: "error",
         open: true,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: "Post length is too short ...",
       });
       setFormData(initialState);
@@ -63,7 +63,7 @@ const CreatePost = () => {
         status: "success",
         open: true,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: "Creating Post ... ",
       });
       await axios.post("/api/posts", formData);
@@ -74,7 +74,7 @@ const CreatePost = () => {
         status: "success",
         open: false,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: "Creating Post ... ",
       });
       setTimeout(() => {
@@ -85,7 +85,7 @@ const CreatePost = () => {
         status: "error",
         open: true,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: { error },
       });
     }
@@ -99,7 +99,7 @@ const CreatePost = () => {
         status: "error",
         open: true,
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
         message: "Image size greater than 5mb",
       });
       setFileInput("");

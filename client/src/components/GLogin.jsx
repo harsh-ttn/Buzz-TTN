@@ -4,9 +4,26 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "../service/axios";
 import "./Login/Login.css";
+import { Alert } from "@material-ui/lab";
+import { Snackbar } from "@material-ui/core";
 
 const GLogin = () => {
   const navigate = useNavigate();
+  const [statusBar, setStatusBar] = useState({
+    status: "success",
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "Creating Post ... ",
+  });
+  const { vertical, horizontal, open, status, message } = statusBar;
+  //snackbar close
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStatusBar(false);
+  };
 
   const loginWithGoogle = async () => {
     try {
@@ -20,22 +37,33 @@ const GLogin = () => {
       // The signed-in user info.
       const user = result.user;
 
-      const userData = {
-        name: user.displayName,
-        email: user.email,
-        userImage: user.photoURL,
-        google: true,
-        password: "*#*#)@*!%@",
-      };
+      if (/@tothenew.com\s*$/.test(user.email)) {
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          userImage: user.photoURL,
+          google: true,
+          password: "*#*#)@*!%@",
+        };
 
-      const userDetails = await axios.post("/api/users", userData);
+        const userDetails = await axios.post("/api/users", userData);
 
-      console.log(userDetails);
+        console.log(userDetails);
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("user-data", JSON.stringify(userDetails.data));
+        localStorage.setItem("token", token);
+        localStorage.setItem("user-data", JSON.stringify(userDetails.data));
 
-      navigate("/");
+        navigate("/");
+      } else {
+        setStatusBar({
+          status: "error",
+          open: true,
+          vertical: "top",
+          horizontal: "center",
+          message:
+            "You can only login with To The New email-ID. Kindly try again",
+        });
+      }
     } catch (error) {
       console.log(`Error ${error}`);
     }
@@ -43,6 +71,31 @@ const GLogin = () => {
 
   return (
     <div>
+      {/* snackbar */}
+      {status === "success" ? (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="success">
+            {message}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
       <button className="google_btn" onClick={loginWithGoogle}>
         Login With Google
       </button>

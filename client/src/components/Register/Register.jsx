@@ -52,9 +52,8 @@ function Register() {
             horizontal: "center",
             message: "User signed-up successfully.Kindly Login!!",
           });
-          setTimeout(() => {
-            navigate("/google");
-          }, 2000);
+
+          navigate("/google");
         } else {
           setStatusBar({
             status: "error",

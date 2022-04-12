@@ -26,6 +26,7 @@ import { Alert } from "@material-ui/lab";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
 import Comments from "./Comments/CreateComment";
+import Modal from "../Modal";
 
 const Post = ({
   id,
@@ -152,9 +153,8 @@ const Post = ({
         message: "Post Deleted ...",
       });
       handleClose();
-      setTimeout(() => {
-        setPostCreated((p) => !p);
-      }, 1000);
+
+      setPostCreated((p) => !p);
     } catch (error) {
       setStatusBar({
         status: "error",
@@ -227,16 +227,30 @@ const Post = ({
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={() => reportPost()}>
-                    <Report style={{ color: "darkgreen" }} />
-                    Report
+                  <MenuItem>
+                    <Modal
+                      message="Report"
+                      modalHeader="Confirmation !"
+                      modalMessage="Do you want to report the post"
+                      func={reportPost}
+                      id={id}
+                    />
+                    <Report style={{ color: "green" }} />
                   </MenuItem>
 
                   {user._id == authorId ? (
-                    <MenuItem onClick={() => deletePost(id)}>
-                      <Delete style={{ color: "darkred" }} />
-                      Delete
-                    </MenuItem>
+                    <>
+                      <MenuItem>
+                        <Modal
+                          message="Delete"
+                          modalHeader="Confirmation !"
+                          modalMessage="Do you want to delete the post"
+                          func={deletePost}
+                          id={id}
+                        />
+                        <Delete style={{ color: "red" }} />
+                      </MenuItem>
+                    </>
                   ) : (
                     <></>
                   )}

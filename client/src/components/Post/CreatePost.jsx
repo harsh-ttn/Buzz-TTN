@@ -79,9 +79,7 @@ const CreatePost = () => {
         horizontal: "center",
         message: "Creating Post ... ",
       });
-      setTimeout(() => {
         setPostCreated((p) => !p);
-      }, 1000);
     } catch (error) {
       setStatusBar({
         status: "error",

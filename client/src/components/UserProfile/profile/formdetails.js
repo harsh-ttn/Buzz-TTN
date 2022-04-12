@@ -94,6 +94,13 @@ export default function Formdetails() {
     reader.onloadend = () => {
       setValues((prev) => ({ ...prev, ["userImage"]: reader.result }));
     };
+    setStatusBar({
+      status: "success",
+      open: true,
+      vertical: "top",
+      horizontal: "center",
+      message: "Picture Added",
+    });
   };
   //
 
@@ -122,7 +129,16 @@ export default function Formdetails() {
   const submitClick = async (e) => {
     e.preventDefault();
     try {
-      if (values.fName !== "" && values.lName !== "" && values.designation !== "" && values.userWebsite !== "" && values.gender !== "" && values.city !== "" && values.state !== "" && values.zip !== "") {
+      if (
+        values.fName !== "" &&
+        values.lName !== "" &&
+        values.designation !== "" &&
+        values.userWebsite !== "" &&
+        values.gender !== "" &&
+        values.city !== "" &&
+        values.state !== "" &&
+        values.zip !== ""
+      ) {
         if (values.zip.length === 6) {
           console.log(values);
           const newUser = await axios.put(`/api/user/${user._id}`, values);
@@ -133,15 +149,12 @@ export default function Formdetails() {
             horizontal: "center",
             message: "User Updated",
           });
-          console.log("new user", newUser.data.data);
           localStorage.setItem("user-data", JSON.stringify(newUser.data.data));
           setPostUpdated((p) => !p);
           setValues(defaultValues);
-          setTimeout(() => {
-            navigate("/");
-          }, 2000);
-        }
-        else {
+
+          navigate("/");
+        } else {
           setStatusBar({
             status: "error",
             open: true,
@@ -150,9 +163,7 @@ export default function Formdetails() {
             message: "zip must have 6 numbers",
           });
         }
-      }
-      else {
-
+      } else {
         setStatusBar({
           status: "error",
           open: true,
@@ -160,7 +171,6 @@ export default function Formdetails() {
           horizontal: "center",
           message: "Can not submit blank details",
         });
-
       }
     } catch (error) {
       console.log(error);
@@ -173,6 +183,7 @@ export default function Formdetails() {
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           open={open}
+          autoHideDuration={3000}
           onClose={handleClose}
           key={vertical + horizontal}
         >
@@ -203,26 +214,19 @@ export default function Formdetails() {
                   width: "10vw",
                 }}
                 src={user.userImage}
-              />
-              <IconButton
-                style={{
-                  backgroundColor: "lightgrey",
-                  color: "white",
-                  padding: "0.5rem",
-                }}
                 onClick={handleFile}
-              >
-                <AddPhotoAlternate />
-                <input
-                  ref={fileRef}
-                  type="file"
-                  name="image"
-                  value={fileInput}
-                  onChange={handleFileInputChange}
-                  className="form-input"
-                  style={{ display: "none" }}
-                />
-              </IconButton>
+              ></Avatar>
+
+              <input
+                ref={fileRef}
+                type="file"
+                name="image"
+                value={fileInput}
+                onChange={handleFileInputChange}
+                className="form-input"
+                style={{ display: "none" }}
+              />
+
               {/* <IconButton onClick={handleFile}>
                 <div
                   style={{
@@ -235,6 +239,7 @@ export default function Formdetails() {
                   Photo/Video
                 </div>
               </IconButton> */}
+
               <Grid container spacing={1}>
                 <Grid xs={12} sm={6} item>
                   <TextField

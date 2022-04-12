@@ -17,6 +17,7 @@ import Header from "../components/Header";
 import CreatePost from "../components/Post/CreatePost";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../context/context";
+import Loader from "../components/Loader";
 
 const Home = () => {
   var user = JSON.parse(localStorage.getItem("user-data"));
@@ -42,7 +43,9 @@ const Home = () => {
   return (
     <>
       {!user ? (
-        <></>
+        <>
+          <Loader />
+        </>
       ) : (
         <>
           <Header />
@@ -57,7 +60,7 @@ const Home = () => {
                 <div
                   style={{ textAlign: "center", position: "sticky", top: 0 }}
                 >
-                  <UserInfo/>
+                  <UserInfo />
                   <Events />
                 </div>
               </Grid>

@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { paper } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const DetailUser = () => {
   const [user, setUser] = useState({});
   let { id } = useParams();
+  
 
   useEffect(() => {
     const getUser = async () => {

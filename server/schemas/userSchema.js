@@ -19,8 +19,9 @@ const userSchema = new mongoose.Schema(
     city: { type: String, defaultValue: "some" },
     state: { type: String, defaultValue: "where" },
     gender: { type: String, defaultValue: "male" },
-    zip: { type: Number, defaultValue: 100100 },
+    zip: { type: String, defaultValue: "100100" },
     birthDate: { type: Date },
+    friends: [String],
   },
   { timeStamp: true }
 );

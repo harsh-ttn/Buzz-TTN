@@ -1,6 +1,7 @@
 .register-main{
-    padding-top: 10%;
-    height: 100vh;
+    padding-top: 5%;
+    min-height: 100vh;
+    height: 100%;
     background: rgba(236,236,236,0.7);
 }
 

@@ -36,7 +36,7 @@ const PendingFriends = () => {
   const acceptFriendReq = async (friendId) => {
     try {
       const res = await axios.post(
-        `/api/confirmfriends?userId=${user._id}&friendId=${friendId}`,
+        `/api/confirmfriends?userId=${user._id}&friendId=${friendId}&friendName=${user.name}&friendImage=${user.userImage}`,
         { status: "friends" }
       );
       console.log("Accepted Request", res.data.data);

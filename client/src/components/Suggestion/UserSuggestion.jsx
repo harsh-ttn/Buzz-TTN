@@ -10,10 +10,10 @@ const UserSuggestion = ({ id, name, userImage }) => {
   const { friend, setFriend } = useContext(DataContext);
 
   const Data = {
-    userId: user._id,
-    friendId: id,
-    friendName: name,
-    friendImage: userImage,
+    userId: id,
+    friendId: user._id,
+    friendName: user.name,
+    friendImage: user.userImage,
     status: "pending",
   };
 

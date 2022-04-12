@@ -39,6 +39,15 @@ export const confirmFriend = async (req, res) => {
 
     friend.save();
 
+    const newFriend = new Friend({
+      friendId: userId,
+      userId: friendId,
+      friendName: req.query.friendName,
+      friendImage: req.query.friendImage,
+      status: "friends",
+    });
+    await newFriend.save();
+
     res.json({ data: friend });
   } catch (error) {
     res.send(error);

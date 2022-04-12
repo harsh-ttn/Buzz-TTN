@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import UserContact from "./UserContact";
 import axios from "../../service/axios";
+import { DataContext } from "../../context/context";
 
 const Contacts = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
+  var user = JSON.parse(localStorage.getItem("user-data"));
+  const { friend, setFriend } = useContext(DataContext);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await axios.get("/api/users");
+        const res = await axios.get(
+          `/api/friends?userId=${user._id}&status=friends`
+        );
         console.log("All users", res.data);
-        setUsers(res.data);
+        setUsers(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);
       }
     };
     getUsers();
-  }, []);
+  }, [friend]);
 
   const toggleSearch = () => {
     setOpenSearch((p) => !p);
+    console.log(users);
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase())
+  const filteredUsers = users.filter((user1) =>
+    user1.friendName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -74,7 +80,12 @@ const Contacts = () => {
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
           {filteredUsers.map((user) => (
-            <UserContact key={user._id} id={user._id} name={user.name} />
+            <UserContact
+              key={user._id}
+              id={user.friendId}
+              name={user.friendName}
+              userImage={user.friendImage}
+            />
           ))}
         </div>
       </Paper>

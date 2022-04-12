@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Profile from "./profile";
 import cover from "./cover.jpg";
 import {
@@ -15,6 +15,7 @@ import Header from "../../Header";
 import axios from "../../../service/axios";
 import { useParams } from "react-router-dom";
 import Suggestions from "../../Suggestion/Suggestions";
+import { DataContext } from "../../../context/context";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -34,6 +35,8 @@ export default function Userprofile() {
   const classes = useStyles();
   const [userData, setUserData] = useState({});
   let { id } = useParams();
+  var user = JSON.parse(localStorage.getItem("user-data"));
+  const { friend, setFriend } = useContext(DataContext);
 
   useEffect(() => {
     const getuserData = async () => {
@@ -41,11 +44,9 @@ export default function Userprofile() {
         const res = await axios(`/api/user/${id}`);
         console.log(res.data);
         if (res.data.designation === undefined) {
-          res.data.designation = "Someone";
-          res.data.city = "Some";
-          res.data.state = "Where";
-          res.data.userImage =
-            "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80";
+          res.data.designation = "Developer";
+          res.data.city = "New Delhi";
+          res.data.state = "Delhi";
         }
         setUserData(res.data);
       } catch (error) {
@@ -54,6 +55,24 @@ export default function Userprofile() {
     };
     getuserData();
   }, [id]);
+
+  const Data = {
+    userId: user._id,
+    friendId: id,
+    friendName: userData.name,
+    friendImage: userData.userImage,
+    status: "pending",
+  };
+
+  const sendFriendReq = async () => {
+    try {
+      const res = await axios.post(`/api/friends`, Data);
+      setFriend((p) => !p);
+      console.log(`Friend req ${Data} ${res}`);
+    } catch (error) {
+      console.log(`Error`, error);
+    }
+  };
 
   return (
     <>
@@ -103,6 +122,7 @@ export default function Userprofile() {
                       color="primary"
                       className={classes.button}
                       startIcon={<PersonAdd />}
+                      onClick={sendFriendReq}
                     >
                       Add Friend
                     </Button>

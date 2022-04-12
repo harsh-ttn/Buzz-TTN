@@ -10,6 +10,7 @@ import {
   TextField,
   Menu,
   MenuItem,
+  Snackbar,
 } from "@material-ui/core";
 import {
   MoreVert,
@@ -21,6 +22,7 @@ import {
   Report,
   Delete,
 } from "@material-ui/icons";
+import { Alert } from "@material-ui/lab";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
 import Comments from "./Comments/CreateComment";
@@ -49,12 +51,19 @@ const Post = ({
     timeZone: "Asia/Kolkata",
   });
   var user = JSON.parse(localStorage.getItem("user-data"));
+  const [statusBar, setStatusBar] = useState({
+    status: "success",
+    open: false,
+    vertical: "top",
+    horizontal: "right",
+    message: "Creating Post ... ",
+  });
+  const { vertical, horizontal, open, status, message } = statusBar;
 
   useEffect(() => {
     const getCommentCount = async () => {
       try {
         const res = await axios.get(`/api/commentsCount/${id}`);
-        console.log(res.data);
         setCommentCount(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);
@@ -82,7 +91,6 @@ const Post = ({
         if (disliked === true) {
           dislikePost(id, "no");
         }
-        console.log("Post liked");
       } catch (error) {
         console.log(`Error ${error}`);
       }
@@ -94,7 +102,6 @@ const Post = ({
         setPostCreated((p) => !p);
         setLiked(false);
         setPostLikes((p) => p - 1);
-        console.log("Post  unliked");
       } catch (error) {
         console.log(`Error ${error}`);
       }
@@ -113,7 +120,6 @@ const Post = ({
         if (liked === true) {
           likePost(id, "no");
         }
-        console.log("Post disliked");
       } catch (error) {
         console.log(`Error ${error}`);
       }
@@ -125,7 +131,6 @@ const Post = ({
         setPostCreated((p) => !p);
         setDisliked(false);
         setPostDislikes((p) => p - 1);
-        console.log("Post undisliked");
       } catch (error) {
         console.log(`Error ${error}`);
       }
@@ -139,15 +144,72 @@ const Post = ({
   const deletePost = async (postId) => {
     try {
       await axios.delete(`/api/posts/${postId}`);
-      setPostCreated((p) => !p);
-      console.log("Post, Comments deleted");
+      setStatusBar({
+        status: "success",
+        open: true,
+        vertical: "top",
+        horizontal: "right",
+        message: "Post Deleted ...",
+      });
+      handleClose();
+      setTimeout(() => {
+        setPostCreated((p) => !p);
+      }, 1000);
     } catch (error) {
-      console.log(`Error ${error}`);
+      setStatusBar({
+        status: "error",
+        open: true,
+        vertical: "top",
+        horizontal: "right",
+        message: "Erro deleting Post ...",
+      });
     }
+  };
+  const reportPost = async () => {
+    handleClose();
+    setStatusBar({
+      status: "success",
+      open: true,
+      vertical: "top",
+      horizontal: "right",
+      message: "Post reported...",
+    });
+  };
+
+  const handleClose1 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStatusBar(false);
   };
 
   return (
     <div style={{ paddingTop: 15 }}>
+      {status === "success" ? (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose1}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose1} severity="success">
+            {message}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose1}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose1} severity="error">
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
       <Card>
         <div style={{ backgroundColor: "white" }}>
           <CardHeader
@@ -165,7 +227,7 @@ const Post = ({
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={() => deletePost(id)}>
+                  <MenuItem onClick={() => reportPost()}>
                     <Report style={{ color: "darkgreen" }} />
                     Report
                   </MenuItem>

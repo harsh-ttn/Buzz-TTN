@@ -2,8 +2,7 @@ import React from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-
-const UserContact = ({ id, name }) => {
+const UserContact = ({ id, name, userImage }) => {
   return (
     <div>
       <Paper
@@ -14,7 +13,10 @@ const UserContact = ({ id, name }) => {
           paddingRight: "20%",
         }}
       >
-        <Avatar style={{ width: 35, height: 35, margin: "10px 15px" }} />
+        <Avatar
+          style={{ width: 35, height: 35, margin: "10px 15px" }}
+          src={userImage}
+        />
         <Link
           to={`/userprofile/${id}`}
           style={{ textDecoration: "none", color: "black" }}

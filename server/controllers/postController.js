@@ -25,7 +25,7 @@ export const getPosts = async (req, res) => {
     } else if (sortType === "top") {
       posts = await Post.find().limit(10).sort({ likes: -1, dislikes: -1 });
     } else {
-      posts = await Post.find().limit(10).sort({ createdAt: -1 });
+      posts = await Post.find().sort({ createdAt: -1 });
     }
     res.json({ status: "got All Posts", data: posts });
   } catch (error) {

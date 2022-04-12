@@ -74,7 +74,12 @@ const Suggestions = () => {
         </div>
         <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
           {filteredUsers.map((user) => (
-            <UserSuggestion key={user._id} id={user._id} name={user.name} />
+            <UserSuggestion
+              key={user._id}
+              id={user._id}
+              name={user.name}
+              userImage={user.userImage}
+            />
           ))}
         </div>
       </Paper>

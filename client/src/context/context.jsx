@@ -6,6 +6,7 @@ const DataProvider = ({ children }) => {
   const [postCreated, setPostCreated] = useState(true);
   const [commentCreated, setCommentCreated] = useState(true);
   const [postUpdated, setPostUpdated] = useState(true);
+  const [friend, setFriend] = useState(true);
 
   return (
     <DataContext.Provider
@@ -16,6 +17,8 @@ const DataProvider = ({ children }) => {
         setCommentCreated,
         postUpdated,
         setPostUpdated,
+        friend,
+        setFriend,
       }}
     >
       {children}

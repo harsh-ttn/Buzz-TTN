@@ -3,6 +3,9 @@ import './Register.css'
 import {Link} from 'react-router-dom';
 import {useState} from 'react'
 import {RegisterApiCall} from '../ApiCall/RegisterApiCall';
+import { Alert } from "@material-ui/lab";
+import { Snackbar } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 function Register(){
 
@@ -10,6 +13,17 @@ function Register(){
     const[emailval,setEmailval]= useState('');
     const[pwdval,setPwdval]= useState('');
     const[confirmpwdval,setConfirmPwdval]= useState('');
+    const navigate = useNavigate();
+     //snackabar
+    const [statusBar, setStatusBar] = useState({
+        status: "success",
+        open: false,
+        vertical: "top",
+        horizontal: "center",
+        message: "Creating Post ... ",
+    });
+    const { vertical, horizontal, open, status, message } = statusBar;
+
 
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -21,20 +35,78 @@ function Register(){
                     setEmailval('');
                     setPwdval('');
                     setConfirmPwdval('');
-                    alert('User signed-up successfully.Kindly Login!!')
+                    setStatusBar({
+                        status: "success",
+                        open: true,
+                        vertical: "top",
+                        horizontal: "center",
+                        message:
+                          "User signed-up successfully.Kindly Login!!",
+                      });
+                      setTimeout(() => {
+                        navigate("/google");
+                      }, 2000);
                 }
                 else{
-                    alert("Passwords don't match. Kindly try again")
+                    setStatusBar({
+                        status: "error",
+                        open: true,
+                        vertical: "top",
+                        horizontal: "center",
+                        message:
+                          "Passwords don't match. Kindly try again",
+                      });
                 }
              }
              else{
-                 alert('User can only sign-up using To The New official email-ID. Kindly try again!!');
+                setStatusBar({
+                    status: "error",
+                    open: true,
+                    vertical: "top",
+                    horizontal: "center",
+                    message:
+                      "User can only sign-up using To The New official email-ID. Kindly try again!!",
+                  });
              } 
             
             }                        
         }
 
+        //snackbar close
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+        return;
+        }
+        setStatusBar(false);
+    };
+
+
     return (
+        <>{/* snackbar */}
+        {status === "success" ? (
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleClose}
+            key={vertical + horizontal}
+          >
+            <Alert onClose={handleClose} severity="success">
+              {message}
+            </Alert>
+          </Snackbar>
+        ) : (
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            key={vertical + horizontal}
+          >
+            <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
+          </Snackbar>
+        )}
         <div className="register-main">
             <div className="top">
                     <h5>Already have an account?
@@ -76,7 +148,9 @@ function Register(){
                
             </div>            
         </div>
+        </>
     )
+
 }
 
 export default Register;

@@ -122,35 +122,46 @@ export default function Formdetails() {
   const submitClick = async (e) => {
     e.preventDefault();
     try {
-      if (values.fName !== "" && values.lName !== "" && values.designation !== "" && values.userWebsite !== "" && values.gender !== "" && values.city !== "" && values.state !== "" && values.zip !== ""){
-      console.log(values);
-      const newUser = await axios.put(`/api/user/${user._id}`, values);
-      setStatusBar({
-        status: "success",
-        open: true,
-        vertical: "top",
-        horizontal: "center",
-        message: "User Updated",
-      });
-      console.log("new user", newUser.data.data);
-      localStorage.setItem("user-data", JSON.stringify(newUser.data.data));
-      setPostUpdated((p) => !p);
-      setValues(defaultValues);
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    }
-    else{
+      if (values.fName !== "" && values.lName !== "" && values.designation !== "" && values.userWebsite !== "" && values.gender !== "" && values.city !== "" && values.state !== "" && values.zip !== "") {
+        if (values.zip.length === 6) {
+          console.log(values);
+          const newUser = await axios.put(`/api/user/${user._id}`, values);
+          setStatusBar({
+            status: "success",
+            open: true,
+            vertical: "top",
+            horizontal: "center",
+            message: "User Updated",
+          });
+          console.log("new user", newUser.data.data);
+          localStorage.setItem("user-data", JSON.stringify(newUser.data.data));
+          setPostUpdated((p) => !p);
+          setValues(defaultValues);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }
+        else {
+          setStatusBar({
+            status: "error",
+            open: true,
+            vertical: "top",
+            horizontal: "center",
+            message: "zip must have 6 numbers",
+          });
+        }
+      }
+      else {
 
-      setStatusBar({
-        status: "error",
-        open: true,
-        vertical: "top",
-        horizontal: "center",
-        message: "Can not submit blank details",
-      });
+        setStatusBar({
+          status: "error",
+          open: true,
+          vertical: "top",
+          horizontal: "center",
+          message: "Can not submit blank details",
+        });
 
-    }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -323,9 +334,11 @@ export default function Formdetails() {
                 </Grid>
                 <Grid xs={6} sm={3} item>
                   <TextField
+                    type="number"
                     label="Zip"
                     placeholder="Zip"
                     name="zip"
+                    InputProps={{ inputProps: { min: 0, max: 6 } }}
                     onChange={inputChange}
                     value={values.zip}
                     variant="outlined"

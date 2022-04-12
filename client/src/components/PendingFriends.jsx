@@ -66,7 +66,7 @@ const PendingFriends = () => {
         {users.length > 0 ? (
           <>
             {users.map((user) => (
-              <MenuItem>
+              <MenuItem key={user.friendId}>
                 <div
                   style={{
                     display: "flex",

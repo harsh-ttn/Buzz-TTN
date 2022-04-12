@@ -109,12 +109,20 @@ export default function Formdetails() {
     });
   };
   const buttonChange = (e) => {
+    setStatusBar({
+      status: "success",
+      open: true,
+      vertical: "top",
+      horizontal: "center",
+      message: "Reset successful",
+    });
     setValues({ ...defaultValues });
   };
 
   const submitClick = async (e) => {
     e.preventDefault();
     try {
+      if (values.fName !== "" && values.lName !== "" && values.designation !== "" && values.userWebsite !== "" && values.gender !== "" && values.city !== "" && values.state !== "" && values.zip !== ""){
       console.log(values);
       const newUser = await axios.put(`/api/user/${user._id}`, values);
       setStatusBar({
@@ -131,6 +139,18 @@ export default function Formdetails() {
       setTimeout(() => {
         navigate("/");
       }, 2000);
+    }
+    else{
+
+      setStatusBar({
+        status: "error",
+        open: true,
+        vertical: "top",
+        horizontal: "center",
+        message: "Can not submit blank details",
+      });
+
+    }
     } catch (error) {
       console.log(error);
     }

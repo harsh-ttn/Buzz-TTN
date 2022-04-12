@@ -21,6 +21,7 @@ const CreatePost = () => {
   const [fileName, setFileName] = useState("");
   //
   const user = JSON.parse(localStorage.getItem("user-data"));
+  //snackabar
   const [statusBar, setStatusBar] = useState({
     status: "success",
     open: false,
@@ -29,6 +30,7 @@ const CreatePost = () => {
     message: "Creating Post ... ",
   });
   const { vertical, horizontal, open, status, message } = statusBar;
+  
   const fileRef = useRef();
 
   //set post values
@@ -124,6 +126,7 @@ const CreatePost = () => {
     fileRef.current.click();
   };
 
+  //snackbar close
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -133,6 +136,7 @@ const CreatePost = () => {
 
   return (
     <>
+    //snackbar
       {status === "success" ? (
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}

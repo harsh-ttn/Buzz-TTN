@@ -1,12 +1,17 @@
 import User from "../schemas/userSchema.js";
 import bcrypt from "bcrypt";
-import auth from "../middleware/auth.js";
 import cloudinary from "../utils/cloudinaryUtils.js";
 
 //gets all users
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const userId = req.query.userId;
+
+    const user = await User.findById(userId);
+    const friends = user.friends;
+
+    const users = await User.find({ _id: { $nin: [userId, ...friends] } });
+
     res.send(users);
   } catch (error) {
     res.status(400).send("Error getting Users");
@@ -30,7 +35,10 @@ export const registerUser = async (req, res) => {
     let user = await User.findOne({ email: email });
     if (user) {
       if (google) {
-        return res.send(user);
+        const token = user.generateAuthToken();
+        return res
+          .header("x-auth-token", token)
+          .send({ user: user, token: token });
       }
       return res.status(400).send("User already registered");
     }
@@ -49,7 +57,7 @@ export const registerUser = async (req, res) => {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header("x-auth-token", token).send(user);
+    res.header("x-auth-token", token).send({ user: user, token: token });
   } catch (error) {
     res.send(error);
   }
@@ -61,15 +69,21 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     if (!user)
-      return res.status(400).json({ errorMessage: "Invalid email or password" });
+      return res
+        .status(400)
+        .json({ errorMessage: "Invalid email or password" });
 
     if (user.google === true) {
-      return res.status(400).send("User must do Google Login");
+      return res
+        .status(400)
+        .json({ errorMessage: "User must do Google Login" });
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword)
-      return res.status(400).json({ errorMessage: "Invalid email or password" });
+      return res
+        .status(400)
+        .json({ errorMessage: "Invalid email or password" });
 
     const token = user.generateAuthToken();
     res.header("x-auth-token", token).json({ user: user, token: token });

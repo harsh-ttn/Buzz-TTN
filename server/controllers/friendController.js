@@ -1,4 +1,5 @@
 import Friend from "../schemas/friendSchema.js";
+import User from "../schemas/userSchema.js";
 
 export const getFriends = async (req, res) => {
   try {
@@ -34,9 +35,7 @@ export const confirmFriend = async (req, res) => {
     const friendId = req.query.friendId;
 
     let friend = await Friend.findOne({ userId: userId, friendId: friendId });
-
     friend.status = "friends";
-
     friend.save();
 
     const newFriend = new Friend({
@@ -47,6 +46,14 @@ export const confirmFriend = async (req, res) => {
       status: "friends",
     });
     await newFriend.save();
+
+    let user1 = await User.findOne({ _id: userId });
+    user1.friends.push(friendId);
+    user1.save();
+
+    let user2 = await User.findOne({ _id: friendId });
+    user2.friends.push(userId);
+    user2.save();
 
     res.json({ data: friend });
   } catch (error) {

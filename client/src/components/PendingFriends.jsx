@@ -22,9 +22,14 @@ const PendingFriends = () => {
     const getUsers = async () => {
       try {
         const res = await axios.get(
-          `/api/friends?userId=${user._id}&status=pending`
+          `/api/friends?userId=${user._id}&status=pending`,
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
         );
-        console.log("Pending users", res.data.data);
+        /* console.log("Pending users", res.data.data); */
         setUsers(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);
@@ -37,9 +42,14 @@ const PendingFriends = () => {
     try {
       const res = await axios.post(
         `/api/confirmfriends?userId=${user._id}&friendId=${friendId}&friendName=${user.name}&friendImage=${user.userImage}`,
-        { status: "friends" }
+        { status: "friends" },
+        {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        }
       );
-      console.log("Accepted Request", res.data.data);
+      /* console.log("Accepted Request", res.data.data); */
       setFriend((p) => !p);
     } catch (error) {
       console.log(`Error ${error}`);

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Paper, Avatar, IconButton, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { PhotoLibrary } from "@material-ui/icons";
@@ -69,7 +69,11 @@ const CreatePost = () => {
         horizontal: "center",
         message: "Creating Post ... ",
       });
-      await axios.post("/api/posts", formData);
+      await axios.post("/api/posts", formData, {
+        headers: {
+          "x-auth-token": JSON.parse(localStorage.getItem("token")),
+        },
+      });
       setFileInput("");
       setFileName("");
       setFormData(initialState);

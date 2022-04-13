@@ -36,10 +36,9 @@ function Login() {
             email: emailval,
             password: pwdval,
           });
-          console.log(user);
           setEmailval("");
           setPwdval("");
-          localStorage.setItem("token", user.data.token);
+          localStorage.setItem("token", JSON.stringify(user.data.token));
           localStorage.setItem("user-data", JSON.stringify(user.data.user));
           navigate("/");
         } catch (error) {

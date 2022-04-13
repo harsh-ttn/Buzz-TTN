@@ -22,7 +22,11 @@ const Comments = ({ id }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const comments = await axios.get(`/api/comments/${id}`);
+        const comments = await axios.get(`/api/comments/${id}`, {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        });
         console.log(comments.data);
         setComments(comments.data.data);
       } catch (error) {
@@ -46,12 +50,20 @@ const Comments = ({ id }) => {
     }
     try {
       const sendComment = async () => {
-        await axios.post(`/api/comments`, {
-          postId: id,
-          comment: comment,
-          author: user.name,
-          authorImage: user.userImage,
-        });
+        await axios.post(
+          `/api/comments`,
+          {
+            postId: id,
+            comment: comment,
+            author: user.name,
+            authorImage: user.userImage,
+          },
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
+        );
         setComment("");
         setCommentCreated((p) => !p);
         console.log(`Comment Added`);

@@ -47,11 +47,10 @@ const GLogin = () => {
         };
 
         const userDetails = await axios.post("/api/users", userData);
-
         console.log(userDetails);
 
-        localStorage.setItem("token", token);
-        localStorage.setItem("user-data", JSON.stringify(userDetails.data));
+        localStorage.setItem("token", JSON.stringify(userDetails.data.token));
+        localStorage.setItem("user-data", JSON.stringify(userDetails.data.user));
 
         navigate("/");
       } else {

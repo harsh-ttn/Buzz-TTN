@@ -16,9 +16,17 @@ const Posts = ({ sortType }) => {
       try {
         let res;
         if (sortType === "") {
-          res = await axios.get("/api/posts");
+          res = await axios.get("/api/posts", {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          });
         } else {
-          res = await axios.get(`/api/posts?sortType=${sortType}`);
+          res = await axios.get(`/api/posts?sortType=${sortType}`, {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          });
         }
         setPosts(res.data.data);
         setLoader(false);

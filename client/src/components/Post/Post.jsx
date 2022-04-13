@@ -64,7 +64,11 @@ const Post = ({
   useEffect(() => {
     const getCommentCount = async () => {
       try {
-        const res = await axios.get(`/api/commentsCount/${id}`);
+        const res = await axios.get(`/api/commentsCount/${id}`, {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        });
         setCommentCount(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);
@@ -83,9 +87,17 @@ const Post = ({
   const likePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(`/api/posts/${postId}`, {
-          likes: postLikes + 1,
-        });
+        await axios.put(
+          `/api/posts/${postId}`,
+          {
+            likes: postLikes + 1,
+          },
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
+        );
         setLiked(true);
         setPostLikes((p) => p + 1);
         setPostCreated((p) => !p);
@@ -97,9 +109,17 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(`/api/posts/${postId}`, {
-          likes: postLikes - 1,
-        });
+        await axios.put(
+          `/api/posts/${postId}`,
+          {
+            likes: postLikes - 1,
+          },
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
+        );
         setPostCreated((p) => !p);
         setLiked(false);
         setPostLikes((p) => p - 1);
@@ -112,9 +132,17 @@ const Post = ({
   const dislikePost = async (postId, condition) => {
     if (condition === "yes") {
       try {
-        await axios.put(`/api/posts/${postId}`, {
-          dislikes: postDislikes + 1,
-        });
+        await axios.put(
+          `/api/posts/${postId}`,
+          {
+            dislikes: postDislikes + 1,
+          },
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
+        );
         setDisliked(true);
         setPostDislikes((p) => p + 1);
         setPostCreated((p) => !p);
@@ -126,9 +154,17 @@ const Post = ({
       }
     } else {
       try {
-        await axios.put(`/api/posts/${postId}`, {
-          dislikes: postDislikes - 1,
-        });
+        await axios.put(
+          `/api/posts/${postId}`,
+          {
+            dislikes: postDislikes - 1,
+          },
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
+        );
         setPostCreated((p) => !p);
         setDisliked(false);
         setPostDislikes((p) => p - 1);
@@ -144,7 +180,11 @@ const Post = ({
 
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`/api/posts/${postId}`);
+      await axios.delete(`/api/posts/${postId}`, {
+        headers: {
+          "x-auth-token": JSON.parse(localStorage.getItem("token")),
+        },
+      });
       setStatusBar({
         status: "success",
         open: true,

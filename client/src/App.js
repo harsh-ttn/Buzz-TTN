@@ -6,6 +6,7 @@ import Register from "./components/Register/Register";
 import DataProvider from "./context/context";
 import SelfProfile from "./components/UserProfile/profile/selfprofile";
 import Userprofile from "./components/UserProfile/profile/userprofile";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/google" element={<Login />} />
             <Route path="/userprofile/:id" element={<Userprofile />} />
             <Route path="/profile" element={<SelfProfile />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Router>
       </DataProvider>

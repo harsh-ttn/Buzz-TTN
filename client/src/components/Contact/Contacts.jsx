@@ -16,9 +16,14 @@ const Contacts = () => {
     const getUsers = async () => {
       try {
         const res = await axios.get(
-          `/api/friends?userId=${user._id}&status=friends`
+          `/api/friends?userId=${user._id}&status=friends`,
+          {
+            headers: {
+              "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            },
+          }
         );
-        console.log("All users", res.data);
+        /* console.log("All users", res.data); */
         setUsers(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);

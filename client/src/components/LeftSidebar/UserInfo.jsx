@@ -12,8 +12,12 @@ const UserInfo = () => {
   useEffect(() => {
     const getPostCount = async () => {
       try {
-        const res = await axios(`/api/postsCount/${user._id}`);
-        console.log(res.data);
+        const res = await axios.get(`/api/postsCount/${user._id}`, {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        });
+        /* console.log(res.data); */
         setPostCount(res.data.data);
       } catch (error) {
         console.log(`Error ${error}`);

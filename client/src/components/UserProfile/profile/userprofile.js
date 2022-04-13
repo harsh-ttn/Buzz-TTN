@@ -70,7 +70,11 @@ export default function Userprofile() {
 
   const sendFriendReq = async () => {
     try {
-      const res = await axios.post(`/api/friends`, Data);
+      const res = await axios.post(`/api/friends`, Data, {
+        headers: {
+          "x-auth-token": JSON.parse(localStorage.getItem("token")),
+        },
+      });
       setFriend((p) => !p);
       console.log(`Friend req ${Data} ${res}`);
     } catch (error) {

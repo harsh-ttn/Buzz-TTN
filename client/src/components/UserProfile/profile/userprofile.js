@@ -41,7 +41,7 @@ export default function Userprofile() {
   const { friend, setFriend } = useContext(DataContext);
   const [showLoader, setShowLoader] = useState(false);
   const [friendCount, setFriendCount] = useState(1);
-  const [isFriend, setIsFriend] = useState([]);
+  const [isFriend, setIsFriend] = useState(false);
 
   useEffect(() => {
     const getuserData = async () => {
@@ -53,11 +53,19 @@ export default function Userprofile() {
           res.data.city = "New Delhi";
           res.data.state = "Delhi";
         }
+
         const res1 = await axios.get(`/api/friendsCount/${id}`, {
           headers: {
             "x-auth-token": JSON.parse(localStorage.getItem("token")),
           },
         });
+
+        const res2 = await axios.get(`/api/isfriend/${id}?userId=${user._id}`, {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        });
+        setIsFriend(res2.data.data);
         setFriendCount(res1.data.data);
         setUserData(res.data);
         setShowLoader(false);
@@ -65,9 +73,6 @@ export default function Userprofile() {
         console.log(`Error ${error}`);
       }
     };
-
-    const condition = user.friends.filter((user) => user.includes(id));
-    setIsFriend(condition);
 
     getuserData();
   }, [id]);
@@ -133,7 +138,7 @@ export default function Userprofile() {
                     <p>Friends : {friendCount}</p>
 
                     <div style={{ paddingLeft: "60px" }}>
-                      {isFriend.length === 0 ? (
+                      {isFriend !== true ? (
                         <Button
                           variant="contained"
                           color="primary"

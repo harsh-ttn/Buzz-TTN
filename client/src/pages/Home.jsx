@@ -19,6 +19,7 @@ import CreatePost from "../components/Post/CreatePost";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../context/context";
 import Loader from "../components/Loader";
+import "./pages.css";
 
 const Home = () => {
   var user = JSON.parse(localStorage.getItem("user-data"));
@@ -59,36 +60,20 @@ const Home = () => {
           <Header />
           <Container maxWidth="lg">
             <Grid container direction="row" spacing={4}>
-              <Grid
-                style={{ textAlign: "center", position: "sticky", top: 0 }}
-                item
-                xs={3}
-              >
-                {/* <p>Left Sidebar</p> */}
-                <div
-                  style={{ textAlign: "center", position: "sticky", top: 0 }}
-                >
+              {/* <p>Left Sidebar</p> */}
+              <Grid item xs={3}>
+                <div className="left-grid">
                   <UserInfo />
                   <Events />
                 </div>
               </Grid>
-              <Grid style={{ textAlign: "center" }} item xs={6}>
-                {/* <p>Middle</p> */}
+
+              {/* <p>Middle</p> */}
+              <Grid item xs={6}>
                 <CreatePost />
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-end",
-                    }}
-                  >
-                    <FormControl style={{ width: "30%" }}>
+                <div className="middle-grid">
+                  <div className="middle-grid-items">
+                    <FormControl className="middle-grid-select">
                       <InputLabel id="demo-controlled-open-select-label">
                         Sort by
                       </InputLabel>
@@ -127,16 +112,14 @@ const Home = () => {
                       <> </>
                     )}
                   </div>
-
                   <Posts sortType={sortType} moderator={state} />
                 </div>
               </Grid>
-              <Grid style={{ textAlign: "center" }} item xs={3}>
-                {/* <p>Right Sidebar</p> */}
-                <div
-                  style={{ textAlign: "center", position: "sticky", top: 0 }}
-                >
-                  <Contacts style={{ paddingBottom: 20 }} />
+
+              {/* <p>Right Sidebar</p> */}
+              <Grid item xs={3}>
+                <div className="right-grid">
+                  <Contacts className="right-grid-contacts" />
                   <Suggestions />
                 </div>
               </Grid>

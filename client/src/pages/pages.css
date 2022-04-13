@@ -1,7 +1,41 @@
-.home-grid-left-container{}
+/* Error page */
 
-.home-grid-left{
+.error-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.error-container h1{
+font-size: 40px;
+}
+
+/* Home */
+
+.left-grid{
   text-align: center;
   position: sticky;
-  top: 0 ;
+  top: 0;
+}
+.middle-grid{
+  display: flex;
+  flex-direction: column;
+}
+.middle-grid-items{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.middle-grid-select{
+  width: 30%;
+}
+.right-grid{
+  text-align: center;
+  position: sticky;
+  top: 0;
+}
+.right-grid-contacts{
+  padding-bottom: 30px; 
 }

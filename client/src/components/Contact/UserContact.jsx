@@ -1,25 +1,19 @@
 import React from "react";
 import { Paper, Avatar, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import "./contacts.css";
 
 const UserContact = ({ id, name, userImage }) => {
   return (
     <div>
-      <Paper
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          paddingRight: "20%",
-        }}
-      >
+      <Paper className="uc-container">
         <Avatar
           style={{ width: 35, height: 35, margin: "10px 15px" }}
           src={userImage}
         />
         <Link
           to={`/userprofile/${id}`}
-          style={{ textDecoration: "none", color: "black" }}
+          className="uc-link"
         >
           <p>{name}</p>
         </Link>

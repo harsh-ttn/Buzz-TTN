@@ -3,6 +3,7 @@ import { Card, CardMedia, CardContent, Avatar } from "@material-ui/core";
 import userInfoBg from "../../assets/user-info-bg.jpg";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
+import "./leftSidebar.css";
 
 const UserInfo = () => {
   const [postCount, setPostCount] = useState(0);
@@ -33,8 +34,8 @@ const UserInfo = () => {
   }, [postCreated]);
 
   return (
-    <Card style={{ marginBottom: 30 }}>
-      <CardMedia style={{ position: "relative" }}>
+    <Card className="ui-card-container">
+      <CardMedia className="ui-card-media">
         <img src={userInfoBg} alt="user-info-bg" width="100%" />
         <Avatar
           style={{
@@ -51,22 +52,17 @@ const UserInfo = () => {
       </CardMedia>
 
       <CardContent>
-        <div style={{ padding: "20px 0" }}>
+        <div className="ui-card-content">
           <h4>{user.name}</h4>
           <p>{user.designation ? user.designation : "Role"} in TTN</p>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-          }}
-        >
+        <div className="ui-counts">
           <div>
             <p>{friendCount * postCount}</p>
             <p>Post Views</p>
           </div>
-          <div style={{ border: "1px solid grey" }}></div>
+          <div className="ui-counts-line"></div>
           <div>
             <p>{postCount}</p>
             <p>Posts</p>

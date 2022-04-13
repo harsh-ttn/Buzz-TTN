@@ -4,6 +4,7 @@ import { Search } from "@material-ui/icons";
 import UserSuggestion from "./UserSuggestion";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
+import "./suggestions.css";
 
 const Suggestions = () => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -36,15 +37,7 @@ const Suggestions = () => {
   return (
     <div>
       <Paper>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center",
-            padding: "10px 15px",
-          }}
-        >
+        <div className="sugg-header">
           <p>Suggestions</p>
           <IconButton onClick={() => toggleSearch()}>
             <Avatar style={{ height: 35, width: 35 }}>
@@ -60,22 +53,14 @@ const Suggestions = () => {
                 id="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{
-                  minWidth: "100px",
-                  width: "60%",
-                  backgroundColor: "lightgrey",
-                  border: "none",
-                  borderRadius: "10px",
-                  outline: "none",
-                  padding: 5,
-                }}
+                className="sugg-input"
               />
             </>
           ) : (
             <></>
           )}
         </div>
-        <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
+        <div className="sugg-users">
           {filteredUsers.map((user) => (
             <UserSuggestion
               key={user._id}

@@ -7,6 +7,7 @@ import {
   EventAvailable,
   People,
 } from "@material-ui/icons";
+import "./leftSidebar.css";
 
 const Events = () => {
   const [showMoreRecent, setShowMoreRecent] = useState(false);
@@ -28,14 +29,9 @@ const Events = () => {
   return (
     <div>
       <Paper style={{ padding: "0 10%" }}>
-        <div style={{ textAlign: "left", padding: "20px 0" }}>
+        <div className="events-container">
           <h4>Recent</h4>
-          <ul
-            style={{
-              listStyle: "none",
-              marginTop: 20,
-            }}
-          >
+          <ul>
             <li>
               <SettingsInputAntenna style={{ fontSize: "1.2rem" }} />{" "}
               #javascript
@@ -79,7 +75,7 @@ const Events = () => {
           </ul>
         </div>
         <Divider />
-        <div style={{ textAlign: "left", padding: "20px 0" }}>
+        <div className="events-container">
           <h4>Groups</h4>
           <ul
             style={{
@@ -130,7 +126,7 @@ const Events = () => {
           </ul>
         </div>
         <Divider />
-        <div style={{ textAlign: "left", padding: "20px 0" }}>
+        <div className="events-container">
           <h4>Subscriptions</h4>
           <ul
             style={{

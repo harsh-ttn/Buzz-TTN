@@ -1,0 +1,48 @@
+/* User Contacts */
+
+.us-paper{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10%;
+}
+.us-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.us-link{
+  text-decoration: none;
+  color: black;
+}
+.us-button{
+  color: #2b7fd3;
+  font-size: 0.7rem;
+  float: right;
+}
+
+/* Contacts */
+
+.sugg-header{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px 15px;
+}
+.sugg-input{
+  min-width: 100px;
+  width: 60%;
+  background-color: lightgrey;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  padding: 5px;
+}
+.sugg-users{
+  height: 32vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

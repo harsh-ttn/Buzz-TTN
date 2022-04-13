@@ -16,7 +16,7 @@ const Posts = ({ sortType, moderator }) => {
     const getPosts = async () => {
       try {
         let res;
-        if (moderator) {
+        if (!moderator) {
           if (sortType === "") {
             res = await axios.get(`/api/posts?userId=${user._id}`, {
               headers: {
@@ -92,6 +92,7 @@ const Posts = ({ sortType, moderator }) => {
                 dislikes={post.dislikes}
                 comments={post.comments}
                 createdAt={post.createdAt}
+                moderator={moderator}
               />
             </LazyLoad>
           ))}

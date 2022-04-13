@@ -20,17 +20,7 @@ export const getPosts = async (req, res) => {
     const userId = req.query.userId;
     let posts;
 
-    if (userId === undefined) {
-      if (sortType === "liked") {
-        posts = await Post.find().limit(10).sort({ likes: -1 });
-      } else if (sortType === "disliked") {
-        posts = await Post.find().limit(10).sort({ dislikes: -1 });
-      } else if (sortType === "top") {
-        posts = await Post.find().limit(10).sort({ likes: -1, dislikes: -1 });
-      } else {
-        posts = await Post.find().sort({ createdAt: -1 });
-      }
-    } else {
+    if (userId !== undefined) {
       const user = await User.findById(userId);
       const friends = user.friends;
 
@@ -50,6 +40,16 @@ export const getPosts = async (req, res) => {
         posts = await Post.find({
           authorId: { $in: [userId, ...friends] },
         }).sort({ createdAt: -1 });
+      }
+    } else {
+      if (sortType === "liked") {
+        posts = await Post.find().limit(10).sort({ likes: -1 });
+      } else if (sortType === "disliked") {
+        posts = await Post.find().limit(10).sort({ dislikes: -1 });
+      } else if (sortType === "top") {
+        posts = await Post.find().limit(10).sort({ likes: -1, dislikes: -1 });
+      } else {
+        posts = await Post.find().sort({ createdAt: -1 });
       }
     }
 

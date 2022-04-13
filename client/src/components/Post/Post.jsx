@@ -38,6 +38,7 @@ const Post = ({
   likes,
   dislikes,
   createdAt,
+  moderator,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { postCreated, setPostCreated, commentCreated, setCommentCreated } =
@@ -284,7 +285,8 @@ const Post = ({
                     <></>
                   )}
 
-                  {user._id === authorId ? (
+                  {user._id === authorId ||
+                  (user.moderator === true && moderator === true) ? (
                     <>
                       <MenuItem>
                         <Modal

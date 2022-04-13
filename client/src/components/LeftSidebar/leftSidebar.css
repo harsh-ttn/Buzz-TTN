@@ -1,0 +1,29 @@
+/* Events */
+
+.events-container{
+  text-align: left;
+   padding: 20px 0;
+}
+.events-container ul{
+  list-style: none;
+  margin-top: 20px;
+}
+
+/* User Info */
+
+.ui-card-container{
+  margin-bottom: 30px;
+}
+.ui-card-media{
+  position: relative;
+}
+.ui-card-content{
+  padding: 20px 0;
+}
+.ui-counts{
+  display: flex;
+  justify-content: space-evenly;
+}
+.ui-counts-line{
+  border: 1px solid grey;
+}

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { PersonAddOutlined } from "@material-ui/icons";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
+import "./suggestions.css";
 
 const UserSuggestion = ({ id, name, userImage }) => {
   var user = JSON.parse(localStorage.getItem("user-data"));
@@ -93,26 +94,17 @@ const UserSuggestion = ({ id, name, userImage }) => {
           paddingRight: "10%",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
+        <div className="us-container">
           <Avatar
             src={userImage}
             style={{ width: 35, height: 35, margin: "10px 15px" }}
           />
-          <Link
-            to={`/userprofile/${id}`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
+          <Link to={`/userprofile/${id}`} className="us-link">
             <p>{name}</p>
           </Link>
         </div>
         <IconButton onClick={sendFriendReq}>
-          <p style={{ color: "#2b7fd3", fontSize: "0.7rem", float: "right" }}>
+          <p className="us-button">
             <PersonAddOutlined />
           </p>
         </IconButton>

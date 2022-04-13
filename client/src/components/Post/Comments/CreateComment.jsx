@@ -4,6 +4,7 @@ import { Avatar, Snackbar } from "@material-ui/core";
 import { DataContext } from "../../../context/context";
 import Comment from "./Comment";
 import { Alert } from "@material-ui/lab";
+import "./comments.css";
 
 const Comments = ({ id }) => {
   const [comment, setComment] = useState("");
@@ -107,63 +108,36 @@ const Comments = ({ id }) => {
           </Alert>
         </Snackbar>
       )}
-      <div
-        style={{
-          widht: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
-            alignItems: "center",
-            padding: "10px",
-          }}
-        >
-          <Avatar src={user.userImage} />
-          <div style={{ flex: 1, padding: "10px 5px 0 10px" }}>
-            <form
-              onSubmit={(e) => {
-                createComment(e, id);
-              }}
-            >
-              <input
-                type="text"
-                name="comment"
-                placeholder="Write a comment..."
-                id="comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                style={{
-                  minWidth: "200px",
-                  width: "90%",
-                  backgroundColor: "lightgrey",
-                  border: "none",
-                  borderRadius: "10px",
-                  outline: "none",
-                  padding: 12,
-                  color: "black",
-                }}
-              />
-            </form>
-          </div>
-        </div>
-        <div>
-          {comments.map((comment) => (
-            <Comment
-              key={comment._id}
-              author={comment.author}
-              authorImage={comment.authorImage}
-              comment={comment.comment}
-              createdAt={comment.createdAt}
+      <div className="create-comment-container">
+        <Avatar src={user.userImage} />
+        <div style={{ flex: 1, padding: "10px 5px 0 10px" }}>
+          <form
+            onSubmit={(e) => {
+              createComment(e, id);
+            }}
+          >
+            <input
+              type="text"
+              name="comment"
+              placeholder="Write a comment..."
+              id="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="create-comment-input"
             />
-          ))}
+          </form>
         </div>
+      </div>
+      <div>
+        {comments.map((comment) => (
+          <Comment
+            key={comment._id}
+            author={comment.author}
+            authorImage={comment.authorImage}
+            comment={comment.comment}
+            createdAt={comment.createdAt}
+          />
+        ))}
       </div>
     </>
   );

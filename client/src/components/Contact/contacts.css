@@ -1,0 +1,39 @@
+/* User Contacts */
+
+.uc-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 20%;
+}
+.uc-link{
+  text-decoration: none;
+  color: black;
+}
+
+/* Contacts */
+
+.contacts-container{
+  margin-bottom: 30px;
+}
+.contacts-header{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px 15px;
+}
+.contacts-input{
+  min-width: 100px;
+  width: 60%;
+  background-color: lightgrey;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  padding: 5px;
+}
+.contacts-users{
+  height: 32vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

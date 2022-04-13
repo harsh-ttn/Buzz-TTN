@@ -4,6 +4,7 @@ import { Search } from "@material-ui/icons";
 import UserContact from "./UserContact";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
+import "./contacts.css";
 
 const Contacts = () => {
   const [openSearch, setOpenSearch] = useState(false);
@@ -42,17 +43,9 @@ const Contacts = () => {
   );
 
   return (
-    <div style={{ marginBottom: 30 }}>
+    <div className="contacts-container">
       <Paper>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center",
-            padding: "10px 15px",
-          }}
-        >
+        <div className="contacts-header">
           <p>Contacts</p>
           <IconButton onClick={() => toggleSearch()}>
             <Avatar style={{ height: 35, width: 35 }}>
@@ -68,22 +61,14 @@ const Contacts = () => {
                 id="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{
-                  minWidth: "100px",
-                  width: "60%",
-                  backgroundColor: "lightgrey",
-                  border: "none",
-                  borderRadius: "10px",
-                  outline: "none",
-                  padding: 5,
-                }}
+                className="contacts-input"
               />
             </>
           ) : (
             <></>
           )}
         </div>
-        <div style={{ height: "32vh", overflowX: "hidden", overflowY: "auto" }}>
+        <div className="contacts-users">
           {filteredUsers.map((user) => (
             <UserContact
               key={user._id}

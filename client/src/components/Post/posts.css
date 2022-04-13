@@ -1,0 +1,89 @@
+/* Create Post */
+
+.postCreate-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+.postCreate-input-container{
+  flex: 1;
+  padding: 10px 5px 0 10px;
+}
+.postCreate-input{
+  min-width: 200px;
+  width: 90%;
+  background-color:lightgrey;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  padding: 12px;
+  color: black;
+}
+.postCreate-image-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.postCreate-image-input{
+  display: none;
+}
+
+/* Post */
+
+.post-cardheader{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.post-report{
+  color: green;
+}
+.post-delete{
+  color: red;
+}
+.post-date{
+  text-align: left;
+  padding-left: 70px;
+  font-size: 0.75rem;
+}
+.post-content{
+  text-align: left;
+  padding: 15px;
+  font-size: 1.1rem;
+}
+.post-cardcontent{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+.post-numbers{
+  display: flex;
+  align-items: center;
+}
+.post-numbers-like{
+  display: flex;
+  align-items: center;
+  padding-right: 19px;
+}
+.post-numbers-dislike{
+  display: flex;
+  align-items: center;
+}
+.post-like{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.post-dislike{
+  display: flex;
+  align-items: center;
+}
+.post-button{
+  display: flex;
+  align-items: center;
+}

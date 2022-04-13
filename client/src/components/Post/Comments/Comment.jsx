@@ -1,36 +1,20 @@
 import React from "react";
 import { Paper, Avatar } from "@material-ui/core";
+import "./comments.css";
 
 const Comment = ({ author, authorImage, comment, createdAt }) => {
   const PostDate = new Date(createdAt).toLocaleString(undefined, {
     timeZone: "Asia/Kolkata",
   });
   return (
-    <Paper
-      style={{
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        padding: "0.7rem 2rem",
-      }}
-    >
+    <Paper className="comment-container">
       <Avatar
         style={{ height: "2.5rem", width: "2.5rem", marginRight: "1.5rem" }}
         src={authorImage}
       />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-        }}
-      >
+      <div className="comment-text">
         <h6>
-          {author}{" "}
-          <span style={{ fontSize: "0.7rem", fontWeight: "normal" }}>
-            {PostDate}
-          </span>
+          {author} <span className="comment-text-date">{PostDate}</span>
         </h6>
 
         <p>{comment}</p>

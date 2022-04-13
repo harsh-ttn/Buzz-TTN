@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ExitToApp } from "@material-ui/icons";
 import { DataContext } from "../context/context";
 import PendingFriends from "./PendingFriends";
+import "./components.css";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -49,14 +50,7 @@ const Header = () => {
           alt="To the New Logo"
           width="80px"
         />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="header-items">
           <IconButton onClick={handleClick}>
             <Avatar
               style={{ height: "30px", width: "30px" }}

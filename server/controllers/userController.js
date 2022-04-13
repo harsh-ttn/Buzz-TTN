@@ -30,7 +30,7 @@ export const getUser = async (req, res) => {
 
 //register user
 export const registerUser = async (req, res) => {
-  const { name, email, password, google, userImage } = req.body;
+  const { name, email, password, google, moderator, userImage } = req.body;
   try {
     let user = await User.findOne({ email: email });
     if (user) {
@@ -51,6 +51,7 @@ export const registerUser = async (req, res) => {
       name: name,
       email: email,
       google: google,
+      moderator: moderator,
       password: hashedPassword,
       userImage: userImage,
     });
@@ -114,7 +115,7 @@ export const updateUser = async (req, res) => {
       const fileStr = userImage;
       const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr);
       userImage = uploadedResponse.url;
-      console.log(uploadedResponse);
+      /* console.log(uploadedResponse); */
     }
 
     const user = await User.findByIdAndUpdate(

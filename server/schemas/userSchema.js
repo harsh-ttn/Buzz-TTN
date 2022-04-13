@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema(
     },
     userImage: { type: String },
     google: { type: Boolean, defaultValue: false, required: true },
+    moderator: { type: Boolean, defaultValue: false, required: true },
     password: { type: String, required: true, minlength: 5 },
     designation: { type: String, defaultValue: "someone" },
     userWebsite: { type: String, defaultValue: "http://www.google.com" },

@@ -43,6 +43,7 @@ const GLogin = () => {
           email: user.email,
           userImage: user.photoURL,
           google: true,
+          moderator: false,
           password: "*#*#)@*!%@",
         };
 
@@ -50,7 +51,10 @@ const GLogin = () => {
         console.log(userDetails);
 
         localStorage.setItem("token", JSON.stringify(userDetails.data.token));
-        localStorage.setItem("user-data", JSON.stringify(userDetails.data.user));
+        localStorage.setItem(
+          "user-data",
+          JSON.stringify(userDetails.data.user)
+        );
 
         navigate("/");
       } else {

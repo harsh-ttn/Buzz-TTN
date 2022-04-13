@@ -39,6 +39,7 @@ function Register() {
             email: emailval,
             password: pwdval,
             google: false,
+            moderator: false,
             userImage: "",
           });
           setName("");

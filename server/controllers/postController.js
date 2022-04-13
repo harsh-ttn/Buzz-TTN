@@ -1,6 +1,7 @@
 import Post from "../schemas/postSchema.js";
 import Comment from "../schemas/commentSchema.js";
 import cloudinary from "../utils/cloudinaryUtils.js";
+import User from "../schemas/userSchema.js";
 
 export const getPostsCount = async (req, res) => {
   try {
@@ -15,18 +16,43 @@ export const getPostsCount = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    let sortType = req.query.sortType;
+    const sortType = req.query.sortType;
+    const userId = req.query.userId;
     let posts;
 
-    if (sortType === "liked") {
-      posts = await Post.find().limit(10).sort({ likes: -1 });
-    } else if (sortType === "disliked") {
-      posts = await Post.find().limit(10).sort({ dislikes: -1 });
-    } else if (sortType === "top") {
-      posts = await Post.find().limit(10).sort({ likes: -1, dislikes: -1 });
+    if (userId === undefined) {
+      if (sortType === "liked") {
+        posts = await Post.find().limit(10).sort({ likes: -1 });
+      } else if (sortType === "disliked") {
+        posts = await Post.find().limit(10).sort({ dislikes: -1 });
+      } else if (sortType === "top") {
+        posts = await Post.find().limit(10).sort({ likes: -1, dislikes: -1 });
+      } else {
+        posts = await Post.find().sort({ createdAt: -1 });
+      }
     } else {
-      posts = await Post.find().sort({ createdAt: -1 });
+      const user = await User.findById(userId);
+      const friends = user.friends;
+
+      if (sortType === "liked") {
+        posts = await Post.find({ authorId: { $in: [userId, ...friends] } })
+          .limit(10)
+          .sort({ likes: -1 });
+      } else if (sortType === "disliked") {
+        posts = await Post.find({ authorId: { $in: [userId, ...friends] } })
+          .limit(10)
+          .sort({ dislikes: -1 });
+      } else if (sortType === "top") {
+        posts = await Post.find({ authorId: { $in: [userId, ...friends] } })
+          .limit(10)
+          .sort({ likes: -1, dislikes: -1 });
+      } else {
+        posts = await Post.find({
+          authorId: { $in: [userId, ...friends] },
+        }).sort({ createdAt: -1 });
+      }
     }
+
     res.json({ status: "got All Posts", data: posts });
   } catch (error) {
     res.status(400).send(`Error ${error}`);
@@ -50,7 +76,7 @@ export const createPost = async (req, res) => {
       const fileStr = image;
       const uploadedResponse = await cloudinary.v2.uploader.upload(fileStr);
       image = uploadedResponse.url;
-      console.log(uploadedResponse);
+      /* console.log(uploadedResponse); */
     }
 
     const post = new Post({

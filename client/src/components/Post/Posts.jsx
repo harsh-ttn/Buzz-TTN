@@ -5,29 +5,50 @@ import { DataContext } from "../../context/context";
 import LazyLoad from "react-lazyload";
 import { LinearProgress } from "@material-ui/core";
 
-const Posts = ({ sortType }) => {
+const Posts = ({ sortType, moderator }) => {
   const [posts, setPosts] = useState([]);
   const { postCreated, setPostCreated } = useContext(DataContext);
   const [loader, setLoader] = useState(false);
+  var user = JSON.parse(localStorage.getItem("user-data"));
 
   useEffect(() => {
     setLoader(true);
     const getPosts = async () => {
       try {
         let res;
-        if (sortType === "") {
-          res = await axios.get("/api/posts", {
-            headers: {
-              "x-auth-token": JSON.parse(localStorage.getItem("token")),
-            },
-          });
+        if (moderator) {
+          if (sortType === "") {
+            res = await axios.get(`/api/posts?userId=${user._id}`, {
+              headers: {
+                "x-auth-token": JSON.parse(localStorage.getItem("token")),
+              },
+            });
+          } else {
+            res = await axios.get(
+              `/api/posts?sortType=${sortType}&userId=${user._id}`,
+              {
+                headers: {
+                  "x-auth-token": JSON.parse(localStorage.getItem("token")),
+                },
+              }
+            );
+          }
         } else {
-          res = await axios.get(`/api/posts?sortType=${sortType}`, {
-            headers: {
-              "x-auth-token": JSON.parse(localStorage.getItem("token")),
-            },
-          });
+          if (sortType === "") {
+            res = await axios.get(`/api/posts`, {
+              headers: {
+                "x-auth-token": JSON.parse(localStorage.getItem("token")),
+              },
+            });
+          } else {
+            res = await axios.get(`/api/posts?sortType=${sortType}`, {
+              headers: {
+                "x-auth-token": JSON.parse(localStorage.getItem("token")),
+              },
+            });
+          }
         }
+
         setPosts(res.data.data);
         setLoader(false);
       } catch (error) {
@@ -35,7 +56,7 @@ const Posts = ({ sortType }) => {
       }
     };
     getPosts();
-  }, [postCreated]);
+  }, [postCreated, moderator]);
 
   return (
     <>

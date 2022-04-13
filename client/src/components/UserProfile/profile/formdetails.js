@@ -48,6 +48,7 @@ export default function Formdetails() {
   const [values, setValues] = useState(defaultValues);
   const classes = useStyle();
   const fileRef = useRef();
+  let url_string;
   //cloudinray
   const [fileInput, setFileInput] = useState("");
   const [fileName, setFileName] = useState("");
@@ -67,6 +68,16 @@ export default function Formdetails() {
     console.log(values);
     if (user.userImage !== "") defaultValues.userImage = user.userImage;
   }, []);
+
+  function isValidUrl(_string) {
+    let url_string; 
+    try {
+      url_string = new URL(_string);
+    } catch (_) {
+      return false;  
+    }
+    return url_string.protocol === "http:" || url_string.protocol === "https:" ;
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -133,13 +144,14 @@ export default function Formdetails() {
         values.fName !== "" &&
         values.lName !== "" &&
         values.designation !== "" &&
-        values.userWebsite !== "" &&
         values.gender !== "" &&
         values.city !== "" &&
         values.state !== "" &&
         values.zip !== ""
       ) {
         if (values.zip.length === 6) {
+         
+          if(isValidUrl(values.userWebsite )){
           console.log(values);
           const newUser = await axios.put(`/api/user/${user._id}`, values);
           setStatusBar({
@@ -154,7 +166,19 @@ export default function Formdetails() {
           setValues(defaultValues);
 
           navigate("/");
-        } else {
+        }
+          else{
+            setStatusBar({
+            status: "error",
+            open: true,
+            vertical: "top",
+            horizontal: "center",
+            message: "website is not",
+          });
+          
+        } 
+      }
+        else {
           setStatusBar({
             status: "error",
             open: true,
@@ -276,6 +300,7 @@ export default function Formdetails() {
                 </Grid>
                 <Grid xs={12} sm={6} item>
                   <TextField
+                    type="url"
                     label="My Website"
                     placeholder="My Website"
                     name="userWebsite"

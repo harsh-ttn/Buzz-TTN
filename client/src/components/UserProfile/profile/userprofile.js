@@ -14,10 +14,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { PersonAdd, PresentToAll } from "@material-ui/icons";
 import Header from "../../Header";
 import axios from "../../../service/axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Suggestions from "../../Suggestion/Suggestions";
 import { DataContext } from "../../../context/context";
 import Loader from "../../Loader";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -42,6 +43,13 @@ export default function Userprofile() {
   const [showLoader, setShowLoader] = useState(false);
   const [friendCount, setFriendCount] = useState(1);
   const [isFriend, setIsFriend] = useState(false);
+  const [statusBar, setStatusBar] = useState({
+    status: "error",
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "your website is blank",
+  });
 
   useEffect(() => {
     const getuserData = async () => {
@@ -99,8 +107,19 @@ export default function Userprofile() {
     }
   };
 
+  const goToWebsite = ()=>{
+    if(`${userData.userWebsite}` === ""){
+      
+      }
+    
+    else{
+    window.open(`${userData.userWebsite}`, "_blank")
+  }
+}
+
   return (
     <>
+    
       <Header />
       {showLoader ? (
         <Loader />
@@ -151,11 +170,12 @@ export default function Userprofile() {
                       ) : (
                         <></>
                       )}
-                      <Button
+                      <Button 
                         variant="contained"
                         color="primary"
                         className={classes.margin}
                         startIcon={<PresentToAll />}
+                        onClick={goToWebsite}
                       >
                         Website
                       </Button>

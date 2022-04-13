@@ -151,7 +151,7 @@ export default function Formdetails() {
       ) {
         if (values.zip.length === 6) {
          
-          if(isValidUrl(values.userWebsite )){
+          if(isValidUrl(values.userWebsite) || (values.userWebsite === "")){
           console.log(values);
           const newUser = await axios.put(`/api/user/${user._id}`, values);
           setStatusBar({

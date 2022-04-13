@@ -109,7 +109,7 @@ export default function Userprofile() {
 
   const goToWebsite = ()=>{
     if(`${userData.userWebsite}` === ""){
-      
+        alert("blank website");
       }
     
     else{

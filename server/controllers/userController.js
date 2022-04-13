@@ -40,7 +40,7 @@ export const registerUser = async (req, res) => {
           .header("x-auth-token", token)
           .send({ user: user, token: token });
       }
-      return res.status(400).send("User already registered");
+      return res.status(400).json({ errorMessage: "User already registered" });
     }
 
     //hashing

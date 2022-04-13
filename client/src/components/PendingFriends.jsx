@@ -1,15 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "../service/axios";
-import { Menu, MenuItem, Avatar, IconButton, Badge } from "@material-ui/core";
+import {
+  Menu,
+  MenuItem,
+  Avatar,
+  IconButton,
+  Badge,
+  Snackbar,
+} from "@material-ui/core";
 import { Textsms } from "@material-ui/icons";
 import { DataContext } from "../context/context";
 import { Link } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
 
 const PendingFriends = () => {
   const [users, setUsers] = useState([]);
   var user = JSON.parse(localStorage.getItem("user-data"));
   const [a, setA] = useState(null);
   const { friend, setFriend } = useContext(DataContext);
+  //snackabar
+  const [statusBar, setStatusBar] = useState({
+    status: "success",
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "Creating Post ... ",
+  });
+  const { vertical, horizontal, open, status, message } = statusBar;
 
   const handleClick1 = (e) => {
     setA(e.currentTarget);
@@ -38,7 +55,7 @@ const PendingFriends = () => {
     getUsers();
   }, [friend]);
 
-  const acceptFriendReq = async (friendId) => {
+  const acceptFriendReq = async (friendId, friendName) => {
     try {
       const res = await axios.post(
         `/api/confirmfriends?userId=${user._id}&friendId=${friendId}&friendName=${user.name}&friendImage=${user.userImage}`,
@@ -51,13 +68,53 @@ const PendingFriends = () => {
       );
       /* console.log("Accepted Request", res.data.data); */
       setFriend((p) => !p);
+      setStatusBar({
+        status: "success",
+        open: true,
+        vertical: "top",
+        horizontal: "center",
+        message: `${friendName} is now your friend`,
+      });
     } catch (error) {
       console.log(`Error ${error}`);
     }
   };
 
+  //snackbar close
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStatusBar(false);
+  };
+
   return (
     <>
+      {status === "success" ? (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="success">
+            {message}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
       <IconButton onClick={handleClick1}>
         <Badge badgeContent={users.length} color="error">
           <Avatar style={{ height: "30px", width: "30px", marginRight: 10 }}>
@@ -65,7 +122,6 @@ const PendingFriends = () => {
           </Avatar>
         </Badge>
       </IconButton>
-
       <Menu
         id="simple-menu"
         anchorEl={a}
@@ -95,7 +151,11 @@ const PendingFriends = () => {
                     <p>{user.friendName}</p>
                   </Link>
                 </div>
-                <IconButton onClick={() => acceptFriendReq(user.friendId)}>
+                <IconButton
+                  onClick={() =>
+                    acceptFriendReq(user.friendId, user.friendName)
+                  }
+                >
                   <p
                     style={{
                       color: "#2b7fd3",

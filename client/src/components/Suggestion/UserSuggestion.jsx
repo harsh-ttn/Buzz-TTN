@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-import { Paper, Avatar, IconButton } from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import { Paper, Avatar, IconButton, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 import { PersonAddOutlined } from "@material-ui/icons";
 import axios from "../../service/axios";
@@ -8,6 +9,15 @@ import { DataContext } from "../../context/context";
 const UserSuggestion = ({ id, name, userImage }) => {
   var user = JSON.parse(localStorage.getItem("user-data"));
   const { friend, setFriend } = useContext(DataContext);
+  //snackabar
+  const [statusBar, setStatusBar] = useState({
+    status: "success",
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "Creating Post ... ",
+  });
+  const { vertical, horizontal, open, status, message } = statusBar;
 
   const Data = {
     userId: id,
@@ -25,14 +35,54 @@ const UserSuggestion = ({ id, name, userImage }) => {
         },
       });
       setFriend((p) => !p);
-      console.log(`Friend req ${Data} ${res}`);
+      setStatusBar({
+        status: "success",
+        open: true,
+        vertical: "top",
+        horizontal: "center",
+        message: `Friend request Sent to ${name}`,
+      });
+      /* console.log(`Friend req ${Data} ${res}`); */
     } catch (error) {
       console.log(`Error`, error);
     }
   };
 
+  //snackbar close
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStatusBar(false);
+  };
+
   return (
     <div>
+      {status === "success" ? (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="success">
+            {message}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {message}
+          </Alert>
+        </Snackbar>
+      )}
       <Paper
         style={{
           width: "100%",

@@ -7,6 +7,7 @@ import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
 import logo from "./logoPng.png";
 import { useNavigate } from "react-router-dom";
+import axios from "../../service/axios";
 
 function Register() {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ function Register() {
   });
   const { vertical, horizontal, open, status, message } = statusBar;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       name !== "" ||
@@ -34,27 +35,37 @@ function Register() {
     ) {
       if (/@tothenew.com\s*$/.test(emailval)) {
         if (pwdval === confirmpwdval) {
-          RegisterApiCall({
-            name: name,
-            email: emailval,
-            password: pwdval,
-            google: false,
-            moderator: false,
-            userImage: "",
-          });
-          setName("");
-          setEmailval("");
-          setPwdval("");
-          setConfirmPwdval("");
-          setStatusBar({
-            status: "success",
-            open: true,
-            vertical: "top",
-            horizontal: "center",
-            message: "User signed-up successfully.Kindly Login!!",
-          });
+          try {
+            await axios.post("/api/users", {
+              name: name,
+              email: emailval,
+              password: pwdval,
+              google: false,
+              moderator: false,
+              userImage: "",
+            });
+            setName("");
+            setEmailval("");
+            setPwdval("");
+            setConfirmPwdval("");
+            setStatusBar({
+              status: "success",
+              open: true,
+              vertical: "top",
+              horizontal: "center",
+              message: "User signed-up successfully.Kindly Login!!",
+            });
 
-          navigate("/google");
+            navigate("/google");
+          } catch (error) {
+            setStatusBar({
+              status: "error",
+              open: true,
+              vertical: "top",
+              horizontal: "center",
+              message: error.response.data.errorMessage,
+            });
+          }
         } else {
           setStatusBar({
             status: "error",

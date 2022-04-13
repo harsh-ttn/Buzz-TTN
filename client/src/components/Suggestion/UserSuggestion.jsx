@@ -38,7 +38,7 @@ const UserSuggestion = ({ id, name, userImage }) => {
       setStatusBar({
         status: "success",
         open: true,
-        vertical: "top",
+        vertical: "bottom",
         horizontal: "center",
         message: `Friend request Sent to ${name}`,
       });

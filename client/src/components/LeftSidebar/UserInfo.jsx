@@ -6,24 +6,30 @@ import { DataContext } from "../../context/context";
 
 const UserInfo = () => {
   const [postCount, setPostCount] = useState(0);
+  const [friendCount, setFriendCount] = useState(1);
   var user = JSON.parse(localStorage.getItem("user-data"));
   const { postCreated, setPostCreated } = useContext(DataContext);
 
   useEffect(() => {
-    const getPostCount = async () => {
+    const getCount = async () => {
       try {
         const res = await axios.get(`/api/postsCount/${user._id}`, {
           headers: {
             "x-auth-token": JSON.parse(localStorage.getItem("token")),
           },
         });
-        /* console.log(res.data); */
         setPostCount(res.data.data);
+        const res1 = await axios.get(`/api/friendsCount/${user._id}`, {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        });
+        setFriendCount(res1.data.data);
       } catch (error) {
         console.log(`Error ${error}`);
       }
     };
-    getPostCount();
+    getCount();
   }, [postCreated]);
 
   return (
@@ -57,7 +63,7 @@ const UserInfo = () => {
           }}
         >
           <div>
-            <p>{postCount * 10}</p>
+            <p>{friendCount * postCount}</p>
             <p>Post Views</p>
           </div>
           <div style={{ border: "1px solid grey" }}></div>

@@ -98,6 +98,19 @@ const CreatePost = () => {
 
   //cloudinary
   const handleFileInputChange = (e) => {
+    console.log(e.target.files[0]);
+    if (!e.target.files[0].type.includes("image")) {
+      setFileName("Not an Image or Gif");
+      setStatusBar({
+        status: "error",
+        open: true,
+        vertical: "top",
+        horizontal: "center",
+        message: "You can only add Images or Gifs",
+      });
+      setFileInput("");
+      return;
+    }
     if (e.target.files[0].size > 5000000) {
       setFileName("Image size greater than 5mb");
       setStatusBar({
@@ -118,6 +131,7 @@ const CreatePost = () => {
 
   const previewFile = (file) => {
     const reader = new FileReader();
+    console.log("reader", reader);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setFormData((prev) => ({ ...prev, ["image"]: reader.result }));
@@ -143,6 +157,7 @@ const CreatePost = () => {
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           open={open}
+          autoHideDuration={3000}
           onClose={handleClose}
           key={vertical + horizontal}
         >
@@ -222,7 +237,7 @@ const CreatePost = () => {
                   className="form-input"
                   style={{ display: "none" }}
                 />
-                Photo/Video
+                Photo/Gifs
               </div>
             </IconButton>
             {fileName ? fileName : <></>}

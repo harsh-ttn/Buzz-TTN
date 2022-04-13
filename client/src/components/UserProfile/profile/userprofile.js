@@ -40,6 +40,7 @@ export default function Userprofile() {
   var user = JSON.parse(localStorage.getItem("user-data"));
   const { friend, setFriend } = useContext(DataContext);
   const [showLoader, setShowLoader] = useState(false);
+  const [friendCount, setFriendCount] = useState(1);
 
   useEffect(() => {
     const getuserData = async () => {
@@ -51,6 +52,12 @@ export default function Userprofile() {
           res.data.city = "New Delhi";
           res.data.state = "Delhi";
         }
+        const res1 = await axios.get(`/api/friendsCount/${id}`, {
+          headers: {
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+          },
+        });
+        setFriendCount(res1.data.data);
         setUserData(res.data);
         setShowLoader(false);
       } catch (error) {
@@ -118,6 +125,7 @@ export default function Userprofile() {
                       about={`${userData.name} is ${userData.designation} `}
                       location={`${userData.city}, ${userData.state}`}
                     />
+                    <p>Friends : {friendCount}</p>
 
                     <div style={{ paddingLeft: "60px" }}>
                       <Button

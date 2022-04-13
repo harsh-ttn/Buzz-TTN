@@ -72,7 +72,9 @@ export const login = async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .json({ errorMessage: "Invalid email or password" });
+        .json({
+          errorMessage: "User doesn't exist, kindly login with another account",
+        });
 
     if (user.google === true) {
       return res

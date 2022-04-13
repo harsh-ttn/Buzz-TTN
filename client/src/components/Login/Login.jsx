@@ -78,6 +78,7 @@ function Login() {
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           open={open}
+          autoHideDuration={5000}
           onClose={handleClose}
           key={vertical + horizontal}
         >
@@ -89,7 +90,7 @@ function Login() {
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           open={open}
-          autoHideDuration={3000}
+          autoHideDuration={5000}
           onClose={handleClose}
           key={vertical + horizontal}
         >

@@ -267,18 +267,24 @@ const Post = ({
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem>
-                    <Modal
-                      message="Report"
-                      modalHeader="Confirmation !"
-                      modalMessage="Do you want to report the post"
-                      func={reportPost}
-                      id={id}
-                    />
-                    <Report style={{ color: "green" }} />
-                  </MenuItem>
+                  {user._id !== authorId ? (
+                    <>
+                      <MenuItem>
+                        <Modal
+                          message="Report"
+                          modalHeader="Confirmation !"
+                          modalMessage="Do you want to report the post"
+                          func={reportPost}
+                          id={id}
+                        />
+                        <Report style={{ color: "green" }} />
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
-                  {user._id == authorId ? (
+                  {user._id === authorId ? (
                     <>
                       <MenuItem>
                         <Modal

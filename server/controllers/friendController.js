@@ -1,6 +1,18 @@
 import Friend from "../schemas/friendSchema.js";
 import User from "../schemas/userSchema.js";
 
+export const friendsCount = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    let user1 = await User.findOne({ _id: userId });
+    const count = user1.friends.length;
+
+    res.json({ status: "Friends Count", data: count });
+  } catch (error) {
+    res.status(400).send(`Error ${error}`);
+  }
+};
+
 export const getFriends = async (req, res) => {
   try {
     const userId = req.query.userId;

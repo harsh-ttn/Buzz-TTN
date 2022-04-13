@@ -71,7 +71,7 @@ const PendingFriends = () => {
       setStatusBar({
         status: "success",
         open: true,
-        vertical: "top",
+        vertical: "bottom",
         horizontal: "center",
         message: `${friendName} is now your friend`,
       });

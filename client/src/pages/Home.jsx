@@ -14,13 +14,11 @@ import Posts from "../components/Post/Posts";
 import Contacts from "../components/Contact/Contacts";
 import Suggestions from "../components/Suggestion/Suggestions";
 import Events from "../components/LeftSidebar/Events";
-import axios from "../service/axios";
 import Header from "../components/Header";
 import CreatePost from "../components/Post/CreatePost";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../context/context";
 import Loader from "../components/Loader";
-import { TrendingUpOutlined } from "@material-ui/icons";
 
 const Home = () => {
   var user = JSON.parse(localStorage.getItem("user-data"));
@@ -29,6 +27,7 @@ const Home = () => {
   const [sortType, setSortType] = useState("");
   const { postCreated, setPostCreated } = useContext(DataContext);
   const [state, setState] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   const handleChange = () => {
     setState((p) => !p);
@@ -46,11 +45,12 @@ const Home = () => {
     if (user == undefined) {
       navigate("/google");
     }
+    setShowLoader(false);
   }, []);
 
   return (
     <>
-      {!user ? (
+      {!user || showLoader ? (
         <>
           <Loader />
         </>

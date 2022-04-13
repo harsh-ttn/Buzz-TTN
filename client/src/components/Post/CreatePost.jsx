@@ -4,6 +4,7 @@ import { Alert } from "@material-ui/lab";
 import { PhotoLibrary } from "@material-ui/icons";
 import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
+import "./posts.css";
 
 const initialState = {
   content: "",
@@ -180,18 +181,9 @@ const CreatePost = () => {
       )}
 
       <form onSubmit={onFormSubmit}>
-        <Paper
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
-            alignItems: "center",
-            padding: "10px",
-          }}
-        >
+        <Paper className="postCreate-container">
           <Avatar src={user.userImage} />
-          <div style={{ flex: 1, padding: "10px 5px 0 10px" }}>
+          <div className="postCreate-input-container">
             <input
               type="text"
               name="content"
@@ -199,26 +191,10 @@ const CreatePost = () => {
               id="content"
               value={content}
               onChange={onChange}
-              style={{
-                minWidth: "200px",
-                width: "90%",
-                backgroundColor: "lightgrey",
-                border: "none",
-                borderRadius: "10px",
-                outline: "none",
-                padding: 12,
-                color: "black",
-              }}
+              className="postCreate-input"
             />
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className="postCreate-image-container">
             <IconButton onClick={handleFile}>
               <div
                 style={{
@@ -234,8 +210,7 @@ const CreatePost = () => {
                   name="image"
                   value={fileInput}
                   onChange={handleFileInputChange}
-                  className="form-input"
-                  style={{ display: "none" }}
+                  className="form-input postCreate-image-input"
                 />
                 Photo/Gifs
               </div>

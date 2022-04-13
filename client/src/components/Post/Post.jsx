@@ -27,6 +27,7 @@ import axios from "../../service/axios";
 import { DataContext } from "../../context/context";
 import Comments from "./Comments/CreateComment";
 import Modal from "../Modal";
+import "./posts.css";
 
 const Post = ({
   id,
@@ -252,9 +253,9 @@ const Post = ({
         </Snackbar>
       )}
       <Card>
-        <div style={{ backgroundColor: "white" }}>
+        <div>
           <CardHeader
-            style={{ padding: 10, display: "flex", flexWrap: "wrap" }}
+            className="post-cardheader"
             avatar={<Avatar src={authorImage} />}
             action={
               <>
@@ -278,7 +279,7 @@ const Post = ({
                           func={reportPost}
                           id={id}
                         />
-                        <Report style={{ color: "green" }} />
+                        <Report className="post-report" />
                       </MenuItem>
                     </>
                   ) : (
@@ -296,7 +297,7 @@ const Post = ({
                           func={deletePost}
                           id={id}
                         />
-                        <Delete style={{ color: "red" }} />
+                        <Delete className="post-delete" />
                       </MenuItem>
                     </>
                   ) : (
@@ -312,12 +313,8 @@ const Post = ({
           />
         </div>
 
-        <p style={{ textAlign: "left", paddingLeft: 70, fontSize: "0.75rem" }}>
-          {PostDate}
-        </p>
-        <p style={{ textAlign: "left", padding: 15, fontSize: "1.1rem" }}>
-          {content}
-        </p>
+        <p className="post-date">{PostDate}</p>
+        <p className="post-content">{content}</p>
         {image === "" ? (
           <></>
         ) : (
@@ -326,27 +323,9 @@ const Post = ({
           </CardMedia>
         )}
         <CardContent style={{ padding: 0 }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "5px 20px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  paddingRight: 10,
-                }}
-              >
+          <div className="post-cardcontent">
+            <div className="post-numbers">
+              <div className="post-numbers-like">
                 <Avatar
                   style={{
                     width: 25,
@@ -359,12 +338,7 @@ const Post = ({
                 <p>{likes}</p>
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+              <div className="post-numbers-like">
                 <Avatar
                   style={{ width: 25, height: 25, backgroundColor: "pink" }}
                 >
@@ -373,36 +347,21 @@ const Post = ({
                 <p>{dislikes}</p>
               </div>
             </div>
+
             <p>{commentCount} comments</p>
           </div>
           <Divider />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
+          <div className="post-like">
             {liked ? (
               <IconButton onClick={() => likePost(id, "no")}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="post-button">
                   <ThumbUpAlt style={{ color: "blue" }} />
                   Like
                 </div>
               </IconButton>
             ) : (
               <IconButton onClick={() => likePost(id, "yes")}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="post-button">
                   <ThumbUpAltOutlined />
                   Like
                 </div>
@@ -410,24 +369,14 @@ const Post = ({
             )}
             {disliked ? (
               <IconButton onClick={() => dislikePost(id, "no")}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="post-button">
                   <ThumbDownAlt style={{ color: "red" }} />
                   Dislike
                 </div>
               </IconButton>
             ) : (
               <IconButton onClick={() => dislikePost(id, "yes")}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+                <div className="post-button">
                   <ThumbDownAltOutlined />
                   Dislike
                 </div>
@@ -435,12 +384,7 @@ const Post = ({
             )}
 
             <IconButton onClick={() => toggleComment()}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+              <div className="post-button">
                 <CommentOutlined />
                 Comment
               </div>

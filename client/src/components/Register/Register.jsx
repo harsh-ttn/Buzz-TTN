@@ -2,7 +2,6 @@ import React from "react";
 import "./Register.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { RegisterApiCall } from "../ApiCall/RegisterApiCall";
 import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
 import logo from "./logoPng.png";

@@ -41,6 +41,7 @@ export default function Userprofile() {
   const { friend, setFriend } = useContext(DataContext);
   const [showLoader, setShowLoader] = useState(false);
   const [friendCount, setFriendCount] = useState(1);
+  const [isFriend, setIsFriend] = useState([]);
 
   useEffect(() => {
     const getuserData = async () => {
@@ -64,14 +65,18 @@ export default function Userprofile() {
         console.log(`Error ${error}`);
       }
     };
+
+    const condition = user.friends.filter((user) => user.includes(id));
+    setIsFriend(condition);
+
     getuserData();
   }, [id]);
 
   const Data = {
-    userId: user._id,
-    friendId: id,
-    friendName: userData.name,
-    friendImage: userData.userImage,
+    userId: id,
+    friendId: user._id,
+    friendName: user.name,
+    friendImage: user.userImage,
     status: "pending",
   };
 
@@ -128,15 +133,19 @@ export default function Userprofile() {
                     <p>Friends : {friendCount}</p>
 
                     <div style={{ paddingLeft: "60px" }}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        startIcon={<PersonAdd />}
-                        onClick={sendFriendReq}
-                      >
-                        Add Friend
-                      </Button>
+                      {isFriend.length === 0 ? (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={classes.button}
+                          startIcon={<PersonAdd />}
+                          onClick={sendFriendReq}
+                        >
+                          Add Friend
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
                       <Button
                         variant="contained"
                         color="primary"

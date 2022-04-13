@@ -60,6 +60,7 @@ const Home = () => {
           <Header />
           <Container maxWidth="lg">
             <Grid container direction="row" spacing={4}>
+              
               {/* <p>Left Sidebar</p> */}
               <Grid item xs={3}>
                 <div className="left-grid">
